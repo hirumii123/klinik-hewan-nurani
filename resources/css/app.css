@@ -1,0 +1,48 @@
+/* Mengimpor font Merriweather dari Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap');
+
+
+/* Mengimpor sumber-sumber lain yang dibutuhkan */
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+/* Variabel warna kustom Nurani */
+:root {
+    --color-nurani-50: #fef8ee;
+    --color-nurani-100: #fcf0d8;
+    --color-nurani-200: #f8dcb0;
+    --color-nurani-300: #f2b969;
+    --color-nurani-400: #ee9f49;
+    --color-nurani-500: #ea8425;
+    --color-nurani-600: #db6b1b;
+    --color-nurani-700: #b65218;
+    --color-nurani-800: #91421b;
+    --color-nurani-900: #753819;
+    --color-nurani-950: #3f1a0b;
+}
+
+/* Tema font Merriweather */
+@theme {
+    --font-sans: 'Merriweather', serif, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* Tambahan styling menggunakan variabel warna Nurani */
+.bg-nurani-300 {
+    background-color: var(--color-nurani-300);
+}
+
+.text-nurani-500 {
+    color: var(--color-nurani-500);
+}
+
+.text-nurani-700 {
+    color: var(--color-nurani-700);
+}
+
+.bg-nurani-100 {
+    background-color: var(--color-nurani-100);
+}
+

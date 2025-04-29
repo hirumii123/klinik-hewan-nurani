@@ -1,0 +1,64 @@
+/* Mengimpor font Merriweather dari Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap');
+
+
+/* Mengimpor sumber-sumber lain yang dibutuhkan */
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+/* Variabel warna kustom Nurani */
+:root {
+    --color-venice-blue-50: #f0f8ff;
+    --color-venice-blue-100: #e0f0fe;
+    --color-venice-blue-200: #bae0fd;
+    --color-venice-blue-300: #7ec9fb;
+    --color-venice-blue-400: #39adf7;
+    --color-venice-blue-500: #0f93e8;
+    --color-venice-blue-600: #0374c6;
+    --color-venice-blue-700: #045ca0;
+    --color-venice-blue-800: #08538c;
+    --color-venice-blue-900: #0c426e;
+    --color-venice-blue-950: #082a49;
+}
+
+/* Tema font Merriweather */
+@theme {
+    --font-sans: 'Merriweather', serif, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+.statistics-section {
+    background-image: url('../images/kucing-banyak.png');
+    background-size: cover;
+    background-position: center;
+    padding: 80px 0;
+    position: relative;
+}
+
+.statistics-section .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(165, 75, 15, 0.85); /* Warna coklat dengan transparansi */
+    z-index: 1;
+}
+
+.statistics-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+.statistics-section h2 {
+    margin-bottom: 0.5rem;
+    font-size: 3rem;
+}
+
+@media (max-width: 768px) {
+    .statistics-section h2 {
+        font-size: 2.5rem;
+    }
+}
