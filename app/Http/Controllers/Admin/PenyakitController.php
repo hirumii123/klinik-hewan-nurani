@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Disease;
+use App\Models\Symptom;
+use App\Models\Rule;
 
 class PenyakitController extends Controller
 {
@@ -21,17 +23,43 @@ class PenyakitController extends Controller
     }
     public function create()
     {
-        return view('admin.penyakit.create');
+        $symptoms = Symptom::orderBy('code')->get();
+        return view('admin.penyakit.create', compact('symptoms'));
     }
 
     public function edit($id)
     {
-        $disease = Disease::findOrFail($id);
-        return view('admin.penyakit.edit', compact('disease'));
+        $disease = Disease::with('rules')->findOrFail($id);
+        $symptoms = Symptom::orderBy('code')->get();
+        $selectedSymptoms = $disease->rules->pluck('symptom_id')->toArray();
+
+        return view('admin.penyakit.edit', compact('disease', 'symptoms', 'selectedSymptoms'));
     }
+
     public function store(Request $request)
     {
-        Disease::create($request->only(['code', 'name', 'description', 'solution']));
+        $request->validate([
+            'code' => 'required|unique:diseases,code',
+            'name' => 'required',
+            'solution' => 'required',
+            'symptoms' => 'required|array|min:1'
+        ]);
+
+        $disease = Disease::create([
+            'code' => $request->code,
+            'name' => $request->name,
+            'description' => '-',
+            'solution' => $request->solution
+        ]);
+
+        foreach ($request->symptoms as $symptomId) {
+            Rule::create([
+                'disease_id' => $disease->id,
+                'symptom_id' => $symptomId,
+                'cf_value' => 0
+            ]);
+        }
+
         return redirect()->route('penyakit.index')->with('success', 'Penyakit berhasil ditambahkan.');
     }
 

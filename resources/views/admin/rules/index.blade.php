@@ -24,10 +24,10 @@
                 <td>{{ $rule->cf_value }}</td>
                 <td>
                     <div class="d-flex gap-2 justify-content-start">
-                        <a href="{{ route('rules.edit', $rule->symptom_id) }}" class="btn btn-sm btn-warning">Edit</a>
-                        <form action="{{ route('rules.destroy', $rule->symptom_id) }}" method="POST" onsubmit="return confirm('Yakin hapus?')">
+                        <a href="{{ route('rules.edit', $rule->id) }}" class="btn btn-sm"><img src="{{ asset('images/edit.png') }}" width="24"><span> Edit</span></a>
+                        <form action="{{ route('rules.destroy', $rule->id) }}" method="POST" onsubmit="return confirm('Yakin hapus?')">
                             @csrf @method('DELETE')
-                            <button class="btn btn-sm btn-danger">Hapus</button>
+                            <button class="btn btn-sm"><img src="{{ asset('images/delete.png') }}" width="24"><span> Delete</span></button>
                         </form>
                     </div>
                 </td>

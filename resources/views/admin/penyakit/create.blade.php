@@ -18,9 +18,20 @@
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Gejala</label>
-        <textarea name="description" class="form-control" rows="3" placeholder="Pisahkan tiap gejala dengan Enter">{{ old('description') }}</textarea>
+        <label class="form-label">Pilih Gejala</label>
+        <div class="form-control" style="height: auto;">
+            @foreach ($symptoms as $symptom)
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="symptoms[]" value="{{ $symptom->id }}"
+                        id="gejala_{{ $symptom->id }}">
+                    <label class="form-check-label" for="gejala_{{ $symptom->id }}">
+                        {{ $symptom->code }} - {{ $symptom->name }}
+                    </label>
+                </div>
+            @endforeach
+        </div>
     </div>
+
 
     <div class="mb-3">
         <label class="form-label">Solusi</label>

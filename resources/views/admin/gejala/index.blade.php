@@ -24,10 +24,10 @@
                 <td>{{ $gejala->kategori }}</td>
                 <td>
                     <div class="d-flex gap-2 justify-content-start">
-                        <a href="{{ route('gejala.edit', $gejala->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="{{ route('gejala.edit', $gejala->id) }}" class="btn btn-sm"><img src="{{ asset('images/edit.png') }}" width="24"><span> Edit</span></a>
                         <form action="{{ route('gejala.destroy', $gejala->id) }}" method="POST" onsubmit="return confirm('Yakin hapus?')">
                             @csrf @method('DELETE')
-                            <button class="btn btn-sm btn-danger">Hapus</button>
+                            <button class="btn btn-sm"><img src="{{ asset('images/delete.png') }}" width="24"><span> Delete</span></button>
                         </form>
                     </div>
                 </td>

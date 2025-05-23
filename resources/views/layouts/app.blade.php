@@ -21,6 +21,7 @@
         body {
             background-color: #f8f9fa;
             font-family: 'Roboto', sans-serif;
+            padding-top: 100px;
         }
         .navbar-brand {
             font-weight: bold;
@@ -61,7 +62,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(165, 75, 15, 0.85); /* Warna coklat dengan transparansi */
+            background-color: rgba(165, 75, 15, 0.85);
             z-index: 1;
         }
 
@@ -74,6 +75,24 @@
             margin-bottom: 0.5rem;
             font-size: 3rem;
         }
+        .transition-navbar {
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background-color: #0d6efd !important; /* Biru */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        .navbar.scrolled .nav-link,
+        .navbar.scrolled .navbar-brand {
+            color: white !important;
+        }
+        .card-img-top {
+            height: 280px;
+            object-fit: cover;
+            object-position: center;
+        }
 
         @media (max-width: 768px) {
             .statistics-section h2 {
@@ -83,9 +102,9 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <nav id="mainNavbar" class="navbar navbar-expand-lg fixed-top navbar-light bg-transparent transition-navbar">
         <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">Nurani Petshop
+            <a class="navbar-brand" href="{{ url('/') }}">Nurani Pet Care
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -96,16 +115,22 @@
                         <a class="nav-link" href="{{ url('/') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Tentang</a>
+                        <a class="nav-link" href="{{ url('/#tentang') }}">Tentang</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Lokasi</a>
+                        <a class="nav-link" href="{{ url('/#layanan') }}">Layanan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('penyakit') }}">Informasi Penyakit</a>
+                        <a class="nav-link" href="{{ url('/#lokasi') }}">Lokasi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('info-diagnosa') }}">Diagnosa</a>
+                        <a class="nav-link" href="{{ route('info-diagnosa') }}">Diagnosa Penyakit</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">|</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('info-diagnosa') }}">Masuk</a>
                     </li>
                 </ul>
             </div>
@@ -152,12 +177,12 @@
     @yield('content')
     </main>
 
-    <footer class="bg-light py-4 mt-5">
+    <!-- <footer class="bg-light py-4 mt-5">
         <div class="container text-center">
             <p class="mb-0">&copy; {{ date('Y') }} Sistem Pakar Diagnosa Penyakit Kucing</p>
             <small class="text-muted">Dibuat dengan Laravel 12</small>
         </div>
-    </footer>
+    </footer> -->
 
     <!-- WhatsApp Floating Button -->
     <a href="https://wa.me/6281226005692?text=Halo%20admin%20Nurani%20Petshop,%20saya%20mau%20tanya..." class="whatsapp-float" target="_blank">
@@ -171,6 +196,17 @@
     AOS.init({
         duration: 1000,
         once: true,
+    });
+    </script>
+    <script>
+    const navbar = document.getElementById('mainNavbar');
+
+    window.addEventListener('scroll', function () {
+        if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+        } else {
+        navbar.classList.remove('scrolled');
+        }
     });
     </script>
 

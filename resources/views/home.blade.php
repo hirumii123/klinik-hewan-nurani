@@ -5,10 +5,10 @@
     <section class="max-height-100vh container" data-aos="fade-up">
         <div class="row align-items-center mb-5">
             <div class="col-lg-6">
-                <h1 class="display-5 fw-bold mb-3">Nurani Petshop</h1>
+                <h1 class="display-5 fw-bold mb-3">Nurani Pet Care</h1>
                 <p class="lead">Pecinta Hewan dan Kopi itu sama, Selalu pake hati dan gak ada pensiun</p>
                 <div class="d-grid gap-2 d-md-flex mt-4">
-                    <a href="{{ route('info-diagnosa') }}" class="btn btn-primary btn-lg px-4">
+                    <a href="{{ url('/#tentang') }}" class="btn btn-primary btn-lg px-4">
                         Selengkapnya
                     </a>
                 </div>
@@ -19,7 +19,7 @@
         </div>
     </section>
 
-    <section class="container" data-aos="fade-right">
+    <section class="container" data-aos="fade-right" id="tentang">
         <div class="flex row align-items-center mb-5">
             <div class="col-lg-6">
                 <img style="width: 430px;" src="{{ asset('images/nurani.svg') }}" alt="foto nurani">
@@ -43,14 +43,14 @@
                 <div class="row text-center text-white">
                     <!-- Kolom Statistik 1 -->
                     <div class="col-md-4 mb-4 mb-md-0">
-                        <h2 class="display-4 fw-bold">1000+</h2>
+                        <h2 class="display-4 fw-bold">500+</h2>
                         <p class="lead">Customer senang</p>
                     </div>
 
                     <!-- Kolom Statistik 2 -->
                     <div class="col-md-4 mb-4 mb-md-0">
-                        <h2 class="display-4 fw-bold">5</h2>
-                        <p class="lead">Dokter Hewan Spesialis</p>
+                        <h2 class="display-4 fw-bold">4</h2>
+                        <p class="lead">Dokter Hewan Berpengalaman</p>
                     </div>
 
                     <!-- Kolom Statistik 3 -->
@@ -64,7 +64,7 @@
     </section>
 
     <!-- Layanan Kami -->
-<section class="container" data-aos="fade-up">
+<section class="container" data-aos="fade-up" id="layanan">
     <div class="row align-items-center mb-5">
         <div class="col-lg-6">
             <h2 class="display-6 fw-bold mb-3">Layanan Kami</h2>
@@ -74,7 +74,7 @@
     <div class="row row-cols-1 row-cols-md-4 g-4">
         <!-- Kartu Layanan 1: Medical Checkup -->
         <div class="col">
-            <div class="card h-100">
+            <div class="card h-100 card-img-top">
                 <img src="{{ asset('images/medical-checkup.png') }}" class="card-img-top" alt="Medical Checkup">
                 <div class="card-body">
                     <h5 class="card-title">Medical Checkup</h5>
@@ -97,7 +97,7 @@
         <!-- Kartu Layanan 3: Grooming -->
         <div class="col">
             <div class="card h-100">
-                <img src="{{ asset('images/grooming.png') }}" class="card-img-top" alt="Grooming">
+                <img src="{{ asset('images/grooming.jpg') }}" class="card-img-top" alt="Grooming">
                 <div class="card-body">
                     <h5 class="card-title">Grooming</h5>
                     <p class="card-text">Perawatan penampilan hewan Anda, termasuk cuci, cukur, dan perawatan bulu.</p>
@@ -119,7 +119,7 @@
 </section>
 
 <!-- Lokasi -->
-<section class="container mt-5" data-aos="fade-up">
+<section class="container mt-5" data-aos="fade-up" id="lokasi">
     <div class="row justify-content-center align-items-center">
         <div class="col-lg-12 text-center">
             <div class="p-5 rounded position-relative">
@@ -153,7 +153,7 @@
             <div class="bg-primary-custom p-5 rounded position-relative">
                 <h2 class="display-6 fw-bold mb-3 text-white">Hubungi Kami</h2>
                 <p class="lead text-white">Hubungi WhatsApp kami untuk mendapatkan informasi <br> lebih lanjut tentang Klinik Hewan Nurani.</p>
-                <a href="https://api.whatsapp.com/send/?phone=6281226005692&text=Halo+admin+Nurani+Petshop%2C+saya+mau+tanya...&type=phone_number&app_absent=0" class="btn btn-light-custom btn-lg px-4" target="_blank">
+                <a href="https://api.whatsapp.com/send/?phone=6281226005692&text=Halo+admin+Nurani+Petshop%2C+saya+mau+tanya...&type=phone_number&app_absent=0" class="btn btn-light btn-lg px-4" target="_blank">
                     Hubungi Kami
                 </a>
                 <!-- Elemen untuk gambar -->

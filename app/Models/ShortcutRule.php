@@ -16,5 +16,11 @@ class ShortcutRule extends Model
     {
         return $this->belongsTo(Disease::class, 'disease_code', 'code');
     }
+
+    public function symptom()
+    {
+        return $this->belongsTo(Symptom::class);
+    }
+
 }
 

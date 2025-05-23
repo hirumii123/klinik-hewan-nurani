@@ -19,11 +19,11 @@ Route::get('/diagnosa/reset', function() {
     return redirect()->route('diagnosa.index')
         ->with('success', 'Sesi diagnosa sebelumnya telah dihapus.');
 })->name('diagnosa.reset');
-Route::view('/info-diagnosa', 'info-diagnosa.index')->name('info-diagnosa');
 Route::get('/penyakit', [DiseaseController::class, 'index'])->name('penyakit');
 Route::get('/', function () {
     return view('home');
 });
+Route::get('/info-diagnosa', [DiseaseController::class, 'info'])->name('info-diagnosa');
 
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
 

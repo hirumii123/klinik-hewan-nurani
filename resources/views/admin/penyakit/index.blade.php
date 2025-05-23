@@ -22,7 +22,15 @@
             <tr>
                 <td>{{ $penyakit->code }}</td>
                 <td>{{ $penyakit->name }}</td>
-                <td style="max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ $penyakit->description }}</td>
+                <td>
+                    <ul class="mb-0 ps-3">
+                        @foreach ($penyakit->rules as $rule)
+                            @if ($rule->symptom)
+                                <li>{{ $rule->symptom->code }} - {{ $rule->symptom->name }}</li>
+                            @endif
+                        @endforeach
+                    </ul>
+                </td>
                 <td style="max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ $penyakit->solution }}</td>
                 <td>
                     <div class="d-flex gap-2 justify-content-start">
