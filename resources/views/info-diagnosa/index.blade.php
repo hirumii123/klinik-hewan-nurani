@@ -87,7 +87,6 @@
             @endforeach
         </div>
 
-        {{-- Container Penyakit --}}
         @foreach ($diseases as $index => $penyakit)
             <div class="card shadow rounded-4 p-4 mb-5 penyakit-content {{ $index !== 0 ? 'd-none' : '' }}"
                  id="penyakit-{{ $penyakit->id }}">
@@ -97,11 +96,12 @@
                 <h5 class="text-orange fw-bold">Gejala</h5>
                 @php $items = preg_split('/\r\n|\r|\n/', $penyakit->description); @endphp
                 <ul>
-                    @foreach ($items as $item)
-                        @if (trim($item)) <li>{{ $item }}</li> @endif
+                    @foreach ($penyakit->rules as $rule)
+                        @if ($rule->symptom)
+                            <li>{{ $rule->symptom->name }}</li>
+                        @endif
                     @endforeach
                 </ul>
-
                 <h5 class="text-orange fw-bold">Solusi</h5>
                 <div>{!! nl2br(e($penyakit->solution)) !!}</div>
             </div>
