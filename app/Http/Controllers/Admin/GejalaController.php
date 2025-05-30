@@ -17,7 +17,7 @@ class GejalaController extends Controller
     {
         $gejala = Symptom::findOrFail($id);
         $gejala->delete();
-        return redirect()->route('admin.gejala.index')->with('success', 'Gejala berhasil dihapus.');
+        return redirect()->route('gejala.index')->with('success', 'Gejala berhasil dihapus.');
     }
     public function create()
     {
@@ -40,14 +40,6 @@ class GejalaController extends Controller
     public function update(Request $request, $id)
     {
         $gejala = Symptom::findOrFail($id);
-
-        // debug
-        // dd($request->all());
-        // $kategoriList = Symptom::select('kategori')
-        // ->distinct()
-        // ->pluck('kategori')
-        // ->filter();
-
         $gejala->update($request->only(['code', 'name', 'kategori']));
         return redirect()->route('gejala.index')->with('success', 'Gejala berhasil diupdate.');
     }

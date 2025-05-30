@@ -99,6 +99,8 @@ body {
     object-position: center; /* Memusatkan gambar */
 }
 
+
+
 /* Media Query untuk responsiveness */
 @media (max-width: 768px) {
     .statistics-section h2 {

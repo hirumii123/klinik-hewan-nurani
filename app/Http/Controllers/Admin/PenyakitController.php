@@ -19,7 +19,7 @@ class PenyakitController extends Controller
     {
         $disease = Disease::findOrFail($id);
         $disease->delete();
-        return redirect()->route('admin.penyakit.index')->with('success', 'Penyakit berhasil dihapus.');
+        return redirect()->route('penyakit.index')->with('success', 'Penyakit berhasil dihapus.');
     }
     public function create()
     {
@@ -65,9 +65,29 @@ class PenyakitController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'code' => 'required|unique:diseases,code,' . $id,
+            'name' => 'required',
+            'solution' => 'required',
+            'symptoms' => 'required|array|min:1'
+        ]);
+
         $disease = Disease::findOrFail($id);
         $disease->update($request->only(['code', 'name', 'description', 'solution']));
+
+        // Update rules
+        Rule::where('disease_id', $disease->id)->delete();
+
+        foreach ($request->symptoms as $symptomId) {
+            Rule::create([
+                'disease_id' => $disease->id,
+                'symptom_id' => $symptomId,
+                'cf_value' => 0
+            ]);
+        }
+
         return redirect()->route('penyakit.index')->with('success', 'Penyakit berhasil diupdate.');
     }
+
 
 }

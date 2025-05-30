@@ -3,11 +3,10 @@
 @section('title', 'Dashboard Admin')
 
 @section('content')
-<h2 class="mb-4 fw-bold">Dashboard Admin</h2>
 
 <div class="row">
     <div class="col-md-6 col-lg-3 mb-4">
-        <div class="card text-bg-success shadow">
+        <div class="card text-bg-success shadow card-dashboard"> {{-- TAMBAHKAN 'card-dashboard' DI SINI --}}
             <div class="card-body text-center">
                 <h2>{{ $jumlahPenyakit }}</h2>
                 <p class="mb-0">Penyakit Terdaftar</p>
@@ -16,7 +15,7 @@
         </div>
     </div>
     <div class="col-md-6 col-lg-3 mb-4">
-        <div class="card text-bg-primary shadow">
+        <div class="card text-bg-primary shadow card-dashboard"> {{-- TAMBAHKAN 'card-dashboard' DI SINI --}}
             <div class="card-body text-center">
                 <h2>{{ $jumlahGejala }}</h2>
                 <p class="mb-0">Gejala Terdaftar</p>
@@ -27,7 +26,7 @@
 
 
     <div class="col-md-6 col-lg-3 mb-4">
-        <div class="card text-bg-warning shadow">
+        <div class="card text-bg-warning shadow card-dashboard"> {{-- TAMBAHKAN 'card-dashboard' DI SINI --}}
             <div class="card-body text-center">
                 <h2>{{ $jumlahRule }}</h2>
                 <p class="mb-0">Rule Certainty Factor</p>
@@ -37,7 +36,7 @@
     </div>
 
     <div class="col-md-6 col-lg-3 mb-4">
-        <div class="card text-bg-danger shadow">
+        <div class="card text-bg-danger shadow card-dashboard"> {{-- TAMBAHKAN 'card-dashboard' DI SINI --}}
             <div class="card-body text-center">
                 <h2>{{ $jumlahShortcut }}</h2>
                 <p class="mb-0">Tree Shortcut</p>
