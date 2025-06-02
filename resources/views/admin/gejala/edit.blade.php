@@ -19,15 +19,17 @@
         <input type="text" name="name" class="form-control" value="{{ old('name', $gejala->name) }}" required>
     </div>
     <div class="mb-3">
-        <label class="form-label">Kategori</label>
-        <select name="kategori" class="form-select" required>
+        <label for="kategori_id" class="form-label">Kategori Gejala</label>
+        <select name="kategori_id" id="kategori_id" class="form-control" required>
+            <option value="">-- Pilih Kategori --</option>
             @foreach ($kategoriList as $kategori)
-                <option value="{{ $kategori }}" {{ old('kategori', $gejala->kategori ?? '') == $kategori ? 'selected' : '' }}>
-                    {{ $kategori }}
+                <option value="{{ $kategori->id }}" {{ $gejala->kategori_id == $kategori->id ? 'selected' : '' }}>
+                    {{ $kategori->name }}
                 </option>
             @endforeach
         </select>
     </div>
+
 
     <button type="submit" class="btn btn-primary">Update</button>
     <a href="{{ route('gejala.index') }}" class="btn btn-secondary">Batal</a>

@@ -33,8 +33,12 @@
 
     <div class="mb-3">
         <label class="form-label">CF Value</label>
-        <input type="number" name="cf_value" step="0.01" class="form-control" value="{{ $rule->cf_value }}" required>
+        <input type="number" name="cf_value" step="0.01" class="form-control @error('cf_value') is-invalid @enderror" value="{{ old('cf_value', $rule->cf_value ?? '') }}" required>
+        @error('cf_value')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
     </div>
+
 
     <button type="submit" class="btn btn-primary">Update</button>
     <a href="{{ route('rules.index') }}" class="btn btn-secondary">Batal</a>

@@ -3,7 +3,7 @@
 @section('title', 'Tree Shortcut')
 
 @section('content')
-<h2 class="mb-4">🌳 Daftar Tree Shortcut</h2>
+<h2 class="mb-4">Rule Shortcut (FC)</h2>
 
 <a href="{{ route('shortcut-rules.create') }}" class="btn btn-primary mb-3">+ Tambah Shortcut</a>
 
@@ -24,7 +24,16 @@
                     </span>
                 @endforeach
             </div>
+            <div class="mt-3 d-flex gap-2">
+                <a href="{{ route('shortcut-rules.edit', $shortcut->id) }}" class="btn btn-sm"><img src="{{ asset('images/edit.png') }}" width="24"><span> Edit</span></a>
+                    <form action="{{ route('shortcut-rules.destroy', $shortcut->id) }}" method="POST" onsubmit="return confirm('Yakin hapus?')">
+                        @csrf @method('DELETE')
+                        <button class="btn btn-sm"><img src="{{ asset('images/delete.png') }}" width="24"><span> Delete</span></button>
+                    </form>
+            </div>
         </div>
+
     </div>
+
 @endforeach
 @endsection

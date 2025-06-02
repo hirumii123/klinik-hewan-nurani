@@ -37,5 +37,37 @@ class ShortcutRuleController extends Controller
 
         return redirect()->route('shortcut-rules.index')->with('success', 'Shortcut berhasil ditambahkan.');
     }
+    public function edit($id)
+    {
+        $shortcut = ShortcutRule::findOrFail($id);
+        $diseases = Disease::orderBy('code')->get();
+        $symptoms = Symptom::orderBy('code')->get();
+        return view('admin.shortcut-rules.edit', compact('shortcut', 'diseases', 'symptoms'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'disease_code' => 'required|exists:diseases,code',
+            'symptom_codes' => 'required|array|min:1',
+        ]);
+
+        $shortcut = ShortcutRule::findOrFail($id);
+        $shortcut->update([
+            'disease_code' => $request->disease_code,
+            'symptom_codes' => $request->symptom_codes,
+        ]);
+
+        return redirect()->route('shortcut-rules.index')->with('success', 'Shortcut berhasil diupdate.');
+    }
+
+    public function destroy($id)
+    {
+        $shortcut = ShortcutRule::findOrFail($id);
+        $shortcut->delete();
+
+        return redirect()->route('shortcut-rules.index')->with('success', 'Shortcut berhasil dihapus.');
+    }
+
 }
 

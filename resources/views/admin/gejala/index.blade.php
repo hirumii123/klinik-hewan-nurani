@@ -21,7 +21,7 @@
             <tr>
                 <td>{{ $gejala->code }}</td>
                 <td>{{ $gejala->name }}</td>
-                <td>{{ $gejala->kategori }}</td>
+                <td>{{ $gejala->category->name ?? '-' }}</td>
                 <td>
                     <div class="d-flex gap-2 justify-content-start">
                         <a href="{{ route('gejala.edit', $gejala->id) }}" class="btn btn-sm"><img src="{{ asset('images/edit.png') }}" width="24"><span> Edit</span></a>

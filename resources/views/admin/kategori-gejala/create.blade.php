@@ -5,7 +5,7 @@
 @section('content')
 <h2 class="mb-4">➕ Tambah Kategori Gejala</h2>
 
-<form action="{{ route('kategori-gejala.store', $kategori) }}" method="POST">
+<form action="{{ route('kategori-gejala.store') }}" method="POST">
     @csrf
     <div class="mb-3">
         <label class="form-label">Nama Kategori</label>

@@ -1,34 +1,37 @@
-    @extends('layouts.admin')
+@extends('layouts.admin')
 
-    @section('title', 'Tambah gejala')
+@section('title', 'Tambah Gejala')
 
-    @section('content')
-    <h2 class="mb-4">➕ Tambah gejala Baru</h2>
+@section('content')
+<h2 class="mb-4">➕ Tambah gejala Baru</h2>
 
-    <form action="{{ route('gejala.store') }}" method="POST">
-        @csrf
-        <div class="mb-3">
-            <label class="form-label">Kode gejala</label>
-            <input type="text" name="code" class="form-control" value="{{ old('code') }}" required>
-        </div>
+<form action="{{ route('gejala.store') }}" method="POST">
+    @csrf
 
-        <div class="mb-3">
-            <label class="form-label">Nama gejala</label>
-            <input type="text" name="name" class="form-control" value="{{ old('name') }}" required>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Kategori</label>
-            <select name="kategori" class="form-select" required>
-                @foreach ($kategoriList as $kategori)
-                    <option value="{{ $kategori }}" {{ old('kategori', $gejala->kategori ?? '') == $kategori ? 'selected' : '' }}>
-                        {{ $kategori }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
+    <div class="mb-3">
+        <label class="form-label">Kode gejala</label>
+        <input type="text" name="code" class="form-control" value="{{ old('code') }}" required>
+    </div>
 
+    <div class="mb-3">
+        <label class="form-label">Nama gejala</label>
+        <input type="text" name="name" class="form-control" value="{{ old('name') }}" required>
+    </div>
 
-        <button type="submit" class="btn btn-success">Simpan</button>
-        <a href="{{ route('gejala.index') }}" class="btn btn-secondary">Batal</a>
-    </form>
-    @endsection
+    <div class="mb-3">
+        <label for="kategori_id" class="form-label">Kategori Gejala</label>
+        <select name="kategori_id" id="kategori_id" class="form-control" required>
+            <option value="">-- Pilih Kategori --</option>
+            @foreach ($kategoriList as $kategori)
+                <option value="{{ $kategori->id }}" {{ old('kategori_id') == $kategori->id ? 'selected' : '' }}>
+                    {{ $kategori->name }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Simpan</button>
+    <a href="{{ route('gejala.index') }}" class="btn btn-secondary">Batal</a>
+</form>
+
+@endsection

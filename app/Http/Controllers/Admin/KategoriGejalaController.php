@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Symptom;
+use App\Models\SymptomCategory;
 
 class KategoriGejalaController extends Controller
 {
     public function index()
     {
-        // Ambil kategori unik
-        $kategori_gejalas = Symptom::select('kategori')->distinct()->orderBy('kategori')->get();
+        $kategori_gejalas = SymptomCategory::orderBy('name')->get();
         return view('admin.kategori-gejala.index', compact('kategori_gejalas'));
     }
 
@@ -26,44 +26,44 @@ class KategoriGejalaController extends Controller
             'kategori' => 'required|string|max:100'
         ]);
 
-        // Cek apakah kategori sudah ada
-        $exists = Symptom::where('kategori', $request->kategori)->exists();
+        $exists = SymptomCategory::where('name', $request->kategori)->exists();
         if ($exists) {
             return redirect()->route('kategori-gejala.index')
                 ->with('warning', 'Kategori sudah ada.');
         }
 
-        // Simpan dengan dummy gejala agar kategori masuk
-        Symptom::create([
-            'code' => 'TEMP', // atau generate kode dummy
-            'name' => 'Temporary Placeholder',
-            'kategori' => $request->kategori
+        SymptomCategory::create([
+            'name' => $request->kategori
         ]);
 
         return redirect()->route('kategori-gejala.index')->with('success', 'Kategori berhasil ditambahkan.');
     }
 
-    public function edit($kategori)
+    public function edit($id)
     {
+        $kategori = SymptomCategory::findOrFail($id);
         return view('admin.kategori-gejala.edit', compact('kategori'));
     }
 
-    public function update(Request $request, $kategori)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'kategori_baru' => 'required|string|max:100'
         ]);
 
-        // Update semua symptom yang pakai kategori lama
-        Symptom::where('kategori', $kategori)->update(['kategori' => $request->kategori_baru]);
+        $kategori = SymptomCategory::findOrFail($id);
+        $kategori->update(['name' => $request->kategori_baru]);
 
         return redirect()->route('kategori-gejala.index')->with('success', 'Kategori berhasil diupdate.');
     }
 
-    public function destroy($kategori)
+    public function destroy($id)
     {
-        // Hapus kategori dari semua symptom (bisa jadi null atau dihapus gejalanya sekalian)
-        Symptom::where('kategori', $kategori)->update(['kategori' => null]);
+        // Set semua symptoms yang pakai kategori ini menjadi null
+        Symptom::where('kategori_id', $id)->update(['kategori_id' => null]);
+
+        // Hapus kategori dari tabel symptom_categories
+        SymptomCategory::destroy($id);
 
         return redirect()->route('kategori-gejala.index')->with('success', 'Kategori berhasil dihapus.');
     }

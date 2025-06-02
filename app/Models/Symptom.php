@@ -9,10 +9,16 @@ class Symptom extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['code', 'name', 'kategori'];
+    protected $fillable = ['code', 'name', 'kategori_id'];
 
     public function rules()
     {
         return $this->hasMany(Rule::class);
     }
+
+    public function category()
+    {
+        return $this->belongsTo(SymptomCategory::class, 'kategori_id');
+    }
 }
+

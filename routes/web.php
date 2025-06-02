@@ -25,12 +25,14 @@ Route::get('/', function () {
 });
 Route::get('/info-diagnosa', [DiseaseController::class, 'info'])->name('info-diagnosa');
 
-Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
 
 Route::prefix('admin')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::resource('/penyakit', PenyakitController::class)->names('penyakit');
     Route::resource('/gejala', GejalaController::class)->names('gejala');
-    Route::resource('/kategori-gejala', KategoriGejalaController::class)->names('kategori-gejala');
+    Route::resource('/kategori-gejala', KategoriGejalaController::class)
+        ->parameters(['kategori-gejala' => 'kategori'])
+        ->names('kategori-gejala');
     Route::resource('/rules', RulesController::class)->names('rules');
     Route::resource('/shortcut-rules', ShortcutRuleController::class)->names('shortcut-rules');
 });

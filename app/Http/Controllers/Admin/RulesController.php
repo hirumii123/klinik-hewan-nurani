@@ -18,7 +18,6 @@ class RulesController extends Controller
 
     public function create()
     {
-        // ✅ Ini benar: untuk input <select>
         $diseases = Disease::orderBy('code')->get();
         $symptoms = Symptom::orderBy('code')->get();
         return view('admin.rules.create', compact('diseases', 'symptoms'));
@@ -30,7 +29,17 @@ class RulesController extends Controller
         $request->validate([
             'symptom_id' => 'required|exists:symptoms,id',
             'disease_id' => 'required|exists:diseases,id',
-            'cf_value' => 'required|numeric|min:0|max:1',
+            'cf_value' => [
+                'required',
+                'numeric',
+                'min:0',
+                'max:1',
+                function ($attribute, $value, $fail) {
+                    if ($value > 1) {
+                        $fail('Nilai CF tidak boleh lebih dari 1.');
+                    }
+                },
+            ],
         ]);
 
         Rule::create($request->only(['symptom_id', 'disease_id', 'cf_value']));
@@ -51,7 +60,17 @@ class RulesController extends Controller
         $request->validate([
             'symptom_id' => 'required|exists:symptoms,id',
             'disease_id' => 'required|exists:diseases,id',
-            'cf_value' => 'required|numeric|min:0|max:1',
+            'cf_value' => [
+            'required',
+            'numeric',
+            'min:0',
+            'max:1',
+            function ($attribute, $value, $fail) {
+                if ($value > 1) {
+                    $fail('Nilai CF tidak boleh lebih dari 1.');
+                }
+            },
+        ],
         ]);
 
         $rule = Rule::findOrFail($id);

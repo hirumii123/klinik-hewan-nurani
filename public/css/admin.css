@@ -139,10 +139,13 @@ body {
 
 /* Gaya untuk ikon di link sidebar */
 .sidebar a i {
-    margin-right: 10px;
+    width: 20px;                /* ⬅ lebar tetap */
+    margin-right: 10px;         /* ⬅ spasi antara ikon dan teks */
+    text-align: center;         /* ⬅ agar ikon rata tengah */
     font-size: 1.1em;
-    transition: margin-right 0.3s ease;
+    flex-shrink: 0;             /* ⬅ cegah ikon menyusut */
 }
+
 
 /* Ikon saat sidebar di-collapse */
 .sidebar.collapsed a i {

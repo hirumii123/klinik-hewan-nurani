@@ -7,19 +7,34 @@
 
 <form action="{{ route('rules.store') }}" method="POST">
     @csrf
+
     <div class="mb-3">
-        <label class="form-label">Kode Penyakit</label>
-        <input type="text" name="code" class="form-control" value="{{ old('symptom_id') }}" required>
+        <label class="form-label">Pilih Penyakit</label>
+        <select name="disease_id" class="form-control" required>
+            <option value="">-- Pilih Penyakit --</option>
+            @foreach ($diseases as $disease)
+                <option value="{{ $disease->id }}" {{ old('disease_id') == $disease->id ? 'selected' : '' }}>
+                    {{ $disease->code }} - {{ $disease->name }}
+                </option>
+            @endforeach
+        </select>
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Nama Penyakit</label>
-        <input type="text" name="name" class="form-control" value="{{ old('disease_id') }}" required>
+        <label class="form-label">Pilih Gejala</label>
+        <select name="symptom_id" class="form-control" required>
+            <option value="">-- Pilih Gejala --</option>
+            @foreach ($symptoms as $symptom)
+                <option value="{{ $symptom->id }}" {{ old('symptom_id') == $symptom->id ? 'selected' : '' }}>
+                    {{ $symptom->code }} - {{ $symptom->name }}
+                </option>
+            @endforeach
+        </select>
     </div>
 
     <div class="mb-3">
         <label class="form-label">CF Value</label>
-        <input type="text" name="name" class="form-control" value="{{ old('cf_value') }}" required>
+        <input type="number" step="0.01" min="0" max="1" name="cf_value" class="form-control" value="{{ old('cf_value') }}" required>
     </div>
 
     <button type="submit" class="btn btn-success">Simpan</button>

@@ -10,7 +10,7 @@
 <table class="table table-bordered align-middle">
     <thead class="table-light">
         <tr>
-            <th style="width: 10%">Kode</th>
+            <th style="width: 10%">Nama Penyakit</th>
             <th>Nama Gejala</th>
             <th>CF Value</th>
             <th style="width: 25%">Aksi</th>
