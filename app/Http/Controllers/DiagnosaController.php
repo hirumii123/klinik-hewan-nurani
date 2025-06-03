@@ -13,10 +13,14 @@ class DiagnosaController extends Controller
     // Tampilkan form gejala
     public function index()
     {
-        $symptoms = Symptom::orderBy('kategori')->orderBy('code')->get()->groupBy('kategori');
+        $symptoms = Symptom::with('kategori')
+            ->orderBy('kategori_id')
+            ->orderBy('code')
+            ->get()
+            ->groupBy(fn($item) => $item->kategori->name ?? 'Tanpa Kategori');
+
         return view('diagnosa.index', compact('symptoms'));
     }
-
 
     // Halaman konfirmasi untuk input CF user
     public function konfirmasi(Request $request)

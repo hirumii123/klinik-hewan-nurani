@@ -16,9 +16,10 @@ class Symptom extends Model
         return $this->hasMany(Rule::class);
     }
 
-    public function category()
+    public function kategori()
     {
         return $this->belongsTo(SymptomCategory::class, 'kategori_id');
     }
+
 }
 
