@@ -77,23 +77,27 @@ class DiagnosaController extends Controller
 
         $cfValues = [];
         $details = [];
-        $gejalaPenyakitMap = Rule::all()->groupBy('symptom_id');
-        $bobotKeunikan = [];
 
-        foreach ($gejalaPenyakitMap as $symptomId => $rulesGroup) {
-            $jumlahPenyakit = $rulesGroup->pluck('disease_id')->unique()->count();
-            $bobotKeunikan[$symptomId] = $jumlahPenyakit > 0 ? round(1 / $jumlahPenyakit, 3) : 1.0;
-        }
+        // BOBOT KEUNIKAN
+        // $gejalaPenyakitMap = Rule::all()->groupBy('symptom_id');
+        // $bobotKeunikan = [];
+
+        // foreach ($gejalaPenyakitMap as $symptomId => $rulesGroup) {
+        //     $jumlahPenyakit = $rulesGroup->pluck('disease_id')->unique()->count();
+        //     $bobotKeunikan[$symptomId] = $jumlahPenyakit > 0 ? round(1 / $jumlahPenyakit, 3) : 1.0;
+        // }
 
         foreach ($rules as $rule) {
             $symptomCode = array_search($rule->symptom_id, $symptomIds);
             $cfUser = floatval($cfUserInputs[$symptomCode] ?? 0);
             $cfExpert = $rule->cf_value;
 
-            $bobot = $bobotKeunikan[$rule->symptom_id] ?? 1.0;
+            // BOBOT KEUNIKAN
+            // $bobot = $bobotKeunikan[$rule->symptom_id] ?? 1.0;
+            // $cfHitung = $cfUser * $cfExpert * $bobot;
 
-            $cfHitung = $cfUser * $cfExpert * $bobot;
 
+            $cfHitung = $cfUser * $cfExpert;
             $diseaseId = $rule->disease_id;
 
             $cfValues[$diseaseId][] = $cfHitung;
@@ -103,7 +107,7 @@ class DiagnosaController extends Controller
                 'symptom_name' => Symptom::where('code', $symptomCode)->value('name'),
                 'cf_expert' => $cfExpert,
                 'cf_user' => $cfUser,
-                'bobot_keunikan' => $bobot,
+                // 'bobot_keunikan' => $bobot,
                 'cf_result' => round($cfHitung, 3)
             ];
         }
