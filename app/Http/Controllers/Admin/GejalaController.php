@@ -11,7 +11,6 @@ class GejalaController extends Controller
 {
     public function index()
     {
-        // with() ambil relasi kategori
         $gejalas = Symptom::with('category')->orderBy('id', 'asc')->get();
         return view('admin.gejala.index', compact('gejalas'));
     }

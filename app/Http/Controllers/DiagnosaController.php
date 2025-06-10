@@ -10,7 +10,6 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class DiagnosaController extends Controller
 {
-    // Tampilkan form gejala
     public function index()
     {
         $symptoms = Symptom::with('kategori')
@@ -27,7 +26,6 @@ class DiagnosaController extends Controller
     {
         $selectedCodes = $request->input('symptoms', []);
 
-        // Validasi jika tidak ada gejala yang dipilih
         if (empty($selectedCodes)) {
             return redirect()->route('diagnosa.index')
                 ->with('error', 'Silakan pilih minimal satu gejala untuk melakukan diagnosa.');
@@ -37,7 +35,6 @@ class DiagnosaController extends Controller
         return view('diagnosa.konfirmasi', compact('selectedSymptoms'));
     }
 
-    // Proses hasil diagnosa
     public function hasil(Request $request)
     {
         $cfUserInputs = $request->input('cf_user', []);
@@ -46,7 +43,6 @@ class DiagnosaController extends Controller
                 ->with('error', 'Terjadi kesalahan. Silakan ulangi proses diagnosa.');
         }
 
-        // 🔍 Jalankan tree forward chaining (shortcut)
         $shortcutCode = $this->checkTreeShortcut($cfUserInputs);
         if ($shortcutCode) {
             $shortcutPenyakit = Disease::where('code', $shortcutCode)->first();
@@ -71,32 +67,16 @@ class DiagnosaController extends Controller
             ]);
         }
 
-        // 🔢 Lanjut ke perhitungan Certainty Factor (CF)
         $symptomIds = Symptom::whereIn('code', array_keys($cfUserInputs))->pluck('id', 'code')->toArray();
         $rules = Rule::whereIn('symptom_id', $symptomIds)->get();
 
         $cfValues = [];
         $details = [];
 
-        // BOBOT KEUNIKAN
-        // $gejalaPenyakitMap = Rule::all()->groupBy('symptom_id');
-        // $bobotKeunikan = [];
-
-        // foreach ($gejalaPenyakitMap as $symptomId => $rulesGroup) {
-        //     $jumlahPenyakit = $rulesGroup->pluck('disease_id')->unique()->count();
-        //     $bobotKeunikan[$symptomId] = $jumlahPenyakit > 0 ? round(1 / $jumlahPenyakit, 3) : 1.0;
-        // }
-
         foreach ($rules as $rule) {
             $symptomCode = array_search($rule->symptom_id, $symptomIds);
             $cfUser = floatval($cfUserInputs[$symptomCode] ?? 0);
             $cfExpert = $rule->cf_value;
-
-            // BOBOT KEUNIKAN
-            // $bobot = $bobotKeunikan[$rule->symptom_id] ?? 1.0;
-            // $cfHitung = $cfUser * $cfExpert * $bobot;
-
-
             $cfHitung = $cfUser * $cfExpert;
             $diseaseId = $rule->disease_id;
 
@@ -107,7 +87,6 @@ class DiagnosaController extends Controller
                 'symptom_name' => Symptom::where('code', $symptomCode)->value('name'),
                 'cf_expert' => $cfExpert,
                 'cf_user' => $cfUser,
-                // 'bobot_keunikan' => $bobot,
                 'cf_result' => round($cfHitung, 3)
             ];
         }
@@ -133,9 +112,7 @@ class DiagnosaController extends Controller
             ];
         }
 
-        // Urutkan & ambil hasil CF tertinggi
         usort($results, fn($a, $b) => $b['cf'] <=> $a['cf']);
-        // $results = array_slice($results, 0, 1);
 
         session()->forget(['hasil_diagnosa', 'cf_user_inputs']);
         session([
@@ -150,7 +127,6 @@ class DiagnosaController extends Controller
     }
 
 
-    // Fungsi shortcut berdasarkan tree forward chaining
     private function checkTreeShortcut(array $cfUserInputs): ?string
     {
         $shortcutRules = \App\Models\ShortcutRule::all();
@@ -181,22 +157,17 @@ class DiagnosaController extends Controller
             return abort(400, 'Data diagnosa tidak valid.');
         }
 
-        // Pastikan ada lebih dari satu penyakit di dalam result
         $diseases = isset($result['diseases']) ? $result['diseases'] : [isset($result['disease']) ? $result['disease'] : null];
 
-        // Kirim data ke view
         $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('diagnosa.pdf', [
             'result' => (object) $result,
             'cfUserInputs' => $cfUserInputs,
-            'diseases' => $diseases,  // Pastikan ini array yang berisi penyakit
+            'diseases' => $diseases,
         ])->setPaper('a4', 'portrait');
 
-        // Menghapus session setelah export PDF
         session()->forget(['hasil_diagnosa', 'cf_user_inputs']);
 
         return $pdf->download('hasil_diagnosa_kucing.pdf');
     }
-
-
 
 }
