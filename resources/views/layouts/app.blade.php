@@ -20,8 +20,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <nav id="mainNavbar" class="navbar navbar-expand-lg fixed-top navbar-light bg-transparent transition-navbar">
-        <div class="container">
+        <nav id="mainNavbar" class="navbar navbar-expand-lg fixed-top navbar-light transition-navbar">        <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
                 <i class="fas fa-cat"></i> Nurani Pet Care
             </a>
@@ -44,9 +43,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('info-diagnosa') }}">Diagnosa Penyakit</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link">|</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('info-diagnosa') }}">Masuk</a>
