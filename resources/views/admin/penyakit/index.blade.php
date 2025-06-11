@@ -3,7 +3,7 @@
 @section('title', 'Penyakit')
 
 @section('content')
-<h2 class="mb-4">🧾 Daftar Penyakit</h2>
+<h2 class="mb-4">Penyakit</h2>
 
 <a href="{{ route('penyakit.create') }}" class="btn btn-primary mb-3">+ Tambah Penyakit</a>
 

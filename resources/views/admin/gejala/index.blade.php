@@ -3,19 +3,19 @@
 @section('title', 'Gejala')
 
 @section('content')
-<h2 class="mb-4">🧾 Daftar Gejala</h2>
+<h2 class="mb-4">Gejala</h2>
 
 <a href="{{ route('gejala.create') }}" class="btn btn-primary mb-3">+ Tambah Gejala</a>
 
-<div class="table-responsive"> {{-- Tambahkan div responsive untuk tabel --}}
+<div class="table-responsive">
     <table class="table table-bordered align-middle">
         <thead class="table-light">
             <tr>
                 <th style="width: 5%">Kode</th>
                 <th>Nama Gejala</th>
                 <th>Kategori Gejala</th>
-                <th style="width: 15%">Gambar</th> {{-- Kolom baru untuk gambar --}}
-                <th style="width: 15%">Sumber Gambar</th> {{-- Kolom baru untuk sumber gambar --}}
+                <th style="width: 15%">Gambar</th>
+                <th style="width: 15%">Sumber Gambar</th>
                 <th style="width: 20%">Aksi</th>
             </tr>
         </thead>
@@ -27,12 +27,18 @@
                     <td>{{ $gejala->kategori->name ?? '-' }}</td>
                     <td>
                         @if ($gejala->image)
-                            <img src="{{ asset($gejala->image) }}" alt="Gambar Gejala" style="width: 80px; height: auto; object-fit: cover; border-radius: 5px;">
+                            {{-- Tambahkan link untuk memicu modal --}}
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal"
+                               data-image-url="{{ asset($gejala->image) }}"
+                               data-image-source="{{ $gejala->image_source ?? 'Tidak ada sumber' }}"
+                               class="d-block text-center image-zoom-trigger">
+                                <img src="{{ asset($gejala->image) }}" alt="Gambar Gejala" style="width: 80px; height: auto; object-fit: cover; border-radius: 5px; cursor: pointer;">
+                            </a>
                         @else
                             -
                         @endif
                     </td>
-                    <td>{{ $gejala->image_source ?? '-' }}</td> {{-- Tampilkan sumber gambar --}}
+                    <td>{{ $gejala->image_source ?? '-' }}</td>
                     <td>
                         <div class="d-flex gap-2 justify-content-start">
                             <a href="{{ route('gejala.edit', $gejala->id) }}" class="btn btn-sm"><img src="{{ asset('images/edit.png') }}" width="24"><span> Edit</span></a>
@@ -47,4 +53,77 @@
         </tbody>
     </table>
 </div>
+
+<!-- Modal untuk menampilkan gambar yang di-zoom -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="imageModalLabel">Detail Gambar Gejala</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center" style="background-color: #f8f9fa;"> {{-- Tambahkan background untuk visual debugging --}}
+        {{-- Penyesuaian inline style pada gambar untuk memastikan tampilan --}}
+        <img src="" class="img-fluid" id="modalImage" alt="Gambar Gejala Detail"
+             style="max-height: 70vh; width: auto; object-fit: contain; display: block; margin: 0 auto; min-width: 100px; min-height: 100px; border: 1px solid #ddd;"> {{-- Tambahkan border dan min-dimensi untuk debugging --}}
+        <p class="text-muted mt-2" id="modalImageSource"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
+
+@push('scripts')
+<script>
+    var imageModal = document.getElementById('imageModal');
+imageModal.addEventListener('show.bs.modal', function (event) {
+    var button = event.relatedTarget;
+    var imageUrl = button.getAttribute('data-image-url');
+    var imageSource = button.getAttribute('data-image-source');
+
+    console.log('Modal Triggered');
+    console.log('Image URL:', imageUrl);
+    console.log('Image Source:', imageSource);
+
+    var modalImage = imageModal.querySelector('#modalImage');
+    var modalImageSource = imageModal.querySelector('#modalImageSource');
+
+    modalImage.src = '';
+    modalImage.src = imageUrl + '?t=' + new Date().getTime(); // cache buster
+
+    modalImageSource.textContent = 'Sumber: ' + imageSource;
+
+    modalImage.onload = function () {
+        console.log('✅ Gambar berhasil dimuat:', this.src);
+    };
+    modalImage.onerror = function () {
+        console.error('❌ Gagal memuat gambar, fallback:', this.src);
+        this.src = 'https://placehold.co/400x300/e0e0e0/555555?text=Gambar+Tidak+Ditemukan';
+    };
+});
+
+
+    // Event listener saat modal ditutup untuk membersihkan src gambar
+    imageModal.addEventListener('hidden.bs.modal', function () {
+        var modalImage = imageModal.querySelector('#modalImage');
+        modalImage.src = ''; // Mengosongkan src saat modal ditutup
+        modalImage.onload = null; // Hapus handler untuk mencegah memory leaks atau pemicuan yang tidak diinginkan
+        modalImage.onerror = null;
+    });
+
+        document.querySelectorAll('.image-zoom-trigger').forEach(function(trigger) {
+        trigger.addEventListener('click', function() {
+            console.log('Trigger Diklik!');
+        });
+    });
+</script>
+<style>
+    img#modalImage {
+    border: 2px dashed red;
+}
+</style>
+@endpush
+

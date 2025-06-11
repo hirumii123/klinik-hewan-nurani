@@ -8,6 +8,10 @@
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <style>
+        /* Gaya tambahan untuk dropdown di admin panel jika diperlukan */
+        .admin-dropdown-toggle::after {
+            vertical-align: 0.155em; /* Penyesuaian posisi panah dropdown */
+        }
     </style>
 </head>
 <body>
@@ -55,8 +59,33 @@
                 <button class="navbar-toggler-sidebar" id="sidebarToggle">
                     <i class="fas fa-bars"></i>
                 </button>
-                <h4>@yield('title', 'Dashboard')</h4>
-                <div style="width: 36px;"></div>
+                <h4 class="flex-grow-1 text-start ps-3 mb-0">@yield('Dashboard')</h4> {{-- Judul halaman tetap di kiri --}}
+
+                {{-- Dropdown Nama Admin --}}
+                @auth
+                    <div class="dropdown ms-auto"> {{-- ms-auto akan mendorong dropdown ke kanan --}}
+                        <a class="nav-link dropdown-toggle text-muted fs-6 admin-dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Halo, {{ Auth::user()->name }}!
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminDropdown">
+                            <li><a class="dropdown-item" href="{{ url('/') }}">
+                                <i class="fas fa-globe me-2"></i>Kembali ke Website
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                             document.getElementById('logout-form-admin').submit();">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                </a>
+                                <form id="logout-form-admin" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                @endauth
+                <div style="width: 36px;"></div> {{-- Elemen placeholder untuk menjaga keseimbangan layout --}}
             </nav>
             <div class="content-area">
                 @yield('content')
@@ -114,5 +143,7 @@
             });
         });
     </script>
+
+    @stack('scripts')
 </body>
 </html>

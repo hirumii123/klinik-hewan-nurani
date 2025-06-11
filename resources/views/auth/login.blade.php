@@ -52,6 +52,10 @@
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                     <input id="password" type="password" class="form-control form-control-lg @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="********">
+                                    {{-- Tombol toggle password --}}
+                                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                        <i class="bi bi-eye-slash" id="togglePasswordIcon"></i> {{-- Ikon mata tertutup --}}
+                                    </button>
                                     @error('password')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -120,4 +124,29 @@
         box-shadow: 0 2px 10px rgba(0,0,0,0.15) !important;
     }
 </style>
+@endpush
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const togglePasswordIcon = document.getElementById('togglePasswordIcon');
+
+        togglePassword.addEventListener('click', function () {
+            // Toggle the type attribute
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+
+            // Toggle the eye icon
+            if (type === 'password') {
+                togglePasswordIcon.classList.remove('bi-eye');
+                togglePasswordIcon.classList.add('bi-eye-slash');
+            } else {
+                togglePasswordIcon.classList.remove('bi-eye-slash');
+                togglePasswordIcon.classList.add('bi-eye');
+            }
+        });
+    });
+</script>
 @endpush
