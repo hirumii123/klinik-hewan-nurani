@@ -6,7 +6,7 @@
         <div class="row align-items-center mb-5">
             <div class="col-lg-6">
                 <h1 class="display-5 fw-bold mb-3">Nurani Pet Care</h1>
-                <p class="lead">Pecinta Hewan dan Kopi itu sama, Selalu pake hati dan gak ada pensiun</p>
+                <p class="lead">Melayani sepenuh hati dengan hati nurani</p>
                 <div class="d-grid gap-2 d-md-flex mt-4">
                     <a href="{{ url('/#tentang') }}" class="btn btn-primary btn-lg px-4">
                         Selengkapnya

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\KategoriGejalaController;
 use App\Http\Controllers\Admin\RulesController;
 use App\Http\Controllers\Admin\ShortcutRuleController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\AuthController;
 
 Route::get('/diagnosa', [DiagnosaController::class, 'index'])->name('diagnosa.index');
 Route::post('/diagnosa/konfirmasi', [DiagnosaController::class, 'konfirmasi'])->name('diagnosa.konfirmasi');
@@ -24,9 +25,11 @@ Route::get('/', function () {
     return view('home');
 });
 Route::get('/info-diagnosa', [DiseaseController::class, 'info'])->name('info-diagnosa');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-
-Route::prefix('admin')->group(function () {
+    Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::resource('/penyakit', PenyakitController::class)->names('penyakit');
     Route::resource('/gejala', GejalaController::class)->names('gejala');

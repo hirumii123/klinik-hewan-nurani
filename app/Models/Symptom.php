@@ -9,7 +9,7 @@ class Symptom extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['code', 'name', 'kategori_id'];
+    protected $fillable = ['code', 'name', 'kategori_id', 'image', 'image_source'];
 
     public function rules()
     {

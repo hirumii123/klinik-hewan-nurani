@@ -22,11 +22,22 @@
                         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
                             @foreach ($listGejala as $symptom)
                                 <div class="col">
+                                    {{-- Tambahkan kelas 'symptom-card-container' untuk menampung efek hover --}}
                                     <label class="card h-100 shadow-sm symptom-card p-3" for="{{ $symptom->code }}" style="cursor: pointer;">
-                                        <div class="form-check">
+                                        <div class="form-check d-flex align-items-center">
                                             <input class="form-check-input d-none" type="checkbox" name="symptoms[]" value="{{ $symptom->code }}" id="{{ $symptom->code }}">
-                                            <span class="fw-semibold">{{ $symptom->code }} - {{ $symptom->name }}</span>
+                                            <span class="fw-semibold flex-grow-1">{{ $symptom->code }} - {{ $symptom->name }}</span>
                                         </div>
+
+                                        {{-- Bagian gambar dan sumber yang akan tampil saat hover --}}
+                                        @if ($symptom->image)
+                                            <div class="symptom-image-info mt-2 text-center">
+                                                <img src="{{ asset($symptom->image) }}" alt="{{ $symptom->name }}" class="img-fluid rounded" style="max-height: 100px; display: block; margin: 0 auto;">
+                                                @if ($symptom->image_source)
+                                                    <small class="text-muted d-block mt-1">Sumber: {{ $symptom->image_source }}</small>
+                                                @endif
+                                            </div>
+                                        @endif
                                     </label>
                                 </div>
                             @endforeach
@@ -97,13 +108,17 @@
     document.querySelectorAll('.symptom-card').forEach(card => {
         const input = card.querySelector('input[type="checkbox"]');
 
-        if (input.checked) card.classList.add('active');
-
         card.addEventListener('click', (e) => {
-            e.preventDefault();
-            input.checked = !input.checked;
-            card.classList.toggle('active', input.checked);
+            if (e.target.tagName !== 'A' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') {
+                input.checked = !input.checked;
+                card.classList.toggle('active', input.checked);
+                e.preventDefault();
+            }
         });
+
+        if (input.checked) {
+            card.classList.add('active');
+        }
     });
 </script>
 @endpush

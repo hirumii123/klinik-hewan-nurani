@@ -20,7 +20,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-        <nav id="mainNavbar" class="navbar navbar-expand-lg fixed-top navbar-light transition-navbar">        <div class="container">
+    <nav id="mainNavbar" class="navbar navbar-expand-lg fixed-top navbar-light transition-navbar">
+        <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
                 <i class="fas fa-cat"></i> Nurani Pet Care
             </a>
@@ -44,61 +45,99 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('info-diagnosa') }}">Diagnosa Penyakit</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('info-diagnosa') }}">Masuk</a>
-                    </li>
+                    {{-- Logika untuk menampilkan tautan login/logout --}}
+                    @guest
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">Masuk</a>
+                        </li>
+                    @else
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }}
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                @if (Auth::user()->role === 'admin')
+                                    <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
+                                        Dashboard Admin
+                                    </a>
+                                @endif
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                                    Keluar
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                    @endguest
                 </ul>
             </div>
         </div>
     </nav>
 
     <main>
-    @if (session('success'))
-        <div class="container mt-3">
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </div>
-    @endif
+    {{-- Container untuk Toast Notifications --}}
+    <div aria-live="polite" aria-atomic="true" class="position-relative">
+        {{-- Mengubah bottom-0 menjadi top-0 dan menambahkan margin-top untuk menghindari navbar --}}
+        <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1080; margin-top: 80px;">
+            @if (session('success'))
+                <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            {{ session('success') }}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            @endif
 
-    @if (session('error'))
+            @if (session('error'))
+                <div class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            {{ session('error') }}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            @endif
+
+            @if (session('warning'))
+                <div class="toast align-items-center text-bg-warning border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="4000">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            {{ session('warning') }}
+                        </div>
+                        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            @endif
+
+            @if (session('info'))
+                <div class="toast align-items-center text-bg-info border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            {{ session('info') }}
+                        </div>
+                        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            @endif
+        </div>
+    </div>
+
+
+    {{-- Bagian untuk menampilkan error validasi Laravel di form --}}
+    @if ($errors->any())
         <div class="container mt-3">
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </div>
-    @endif
-
-    @if (session('warning'))
-        <div class="container mt-3">
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                {{ session('warning') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </div>
-    @endif
-
-    @if ($errors->any())
-        <div class="toast align-items-center text-bg-danger border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body">
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-        </div>
-    @endif
-
-    @if (session('info'))
-        <div class="container mt-3">
-            <div class="alert alert-info alert-dismissible fade show" role="alert">
-                {{ session('info') }}
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </div>
@@ -140,6 +179,17 @@
     });
     </script>
 
+    {{-- Script untuk menginisialisasi Bootstrap Toasts --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dapatkan semua elemen toast
+            var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+            // Inisialisasi setiap toast
+            var toastList = toastElList.map(function(toastEl) {
+                return new bootstrap.Toast(toastEl, { autohide: true }).show();
+            });
+        });
+    </script>
 
 </body>
 @stack('scripts')
