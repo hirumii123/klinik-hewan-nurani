@@ -9,7 +9,7 @@
 
             <!-- Progress Bar -->
             <div class="progress mb-4" style="height: 20px;">
-                <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 5%;" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                <div id="progress-bar" class="progress-bar bg-custom-biru" role="progressbar" style="width: 5%;" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
 
             <form id="symptom-form" action="{{ route('diagnosa.konfirmasi') }}" method="POST">
@@ -107,29 +107,3 @@
     });
 </script>
 @endpush
-
-<style>
-.symptom-card {
-    transition: 0.3s ease all;
-    transform-origin: center;
-}
-
-.symptom-card:hover {
-    background-color: #f8f9fa;
-    transform: scale(1.01);
-}
-
-.symptom-card.active {
-    border: 2px solid #0d6efd !important;
-    box-shadow: 0 0 20px rgba(13, 110, 253, 0.5);
-    animation: pulse 0.4s ease;
-    transform: scale(1.03);
-    background-color: #e7f1ff;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); box-shadow: 0 0 0 rgba(13,110,253,0.5); }
-    50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(13,110,253,0.5); }
-    100% { transform: scale(1.03); box-shadow: 0 0 10px rgba(13,110,253,0.5); }
-}
-</style>

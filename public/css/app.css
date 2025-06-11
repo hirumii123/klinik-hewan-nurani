@@ -1,102 +1,76 @@
 /* public/css/app.css */
 
-/* Mengimpor font Merriweather dari Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap');
-/* Mengimpor font Roboto dari Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-
-/* Variabel warna kustom Nurani (dipertahankan untuk referensi, dapat dihapus jika tidak digunakan) */
 :root {
-    --color-nurani-50: #fef8ee;
-    --color-nurani-100: #fcf0d8;
-    --color-nurani-200: #f8dcb0;
-    --color-nurani-300: #f2b969;
-    --color-nurani-400: #ee9f49;
-    --color-nurani-500: #ea8425;
-    --color-nurani-600: #db6b1b;
-    --color-nurani-700: #b65218;
-    --color-nurani-800: #91421b;
-    --color-nurani-900: #753819;
-    --color-nurani-950: #3f1a0b;
-
-    /* Override Variabel Bootstrap untuk Warna Primer dari palet baru */
-    --bs-primary: #133E87; /* Dark Blue dari palet yang Anda berikan */
-    --bs-primary-rgb: 19, 62, 135; /* Nilai RGB dari #133E87 */
-
-    /* Tambahan: Override Variabel Bootstrap untuk Warna Sekunder agar sama dengan Primer */
-    --bs-secondary: var(--bs-primary); /* Menggunakan warna primer untuk sekunder */
-    --bs-secondary-rgb: var(--bs-primary-rgb); /* Menggunakan nilai RGB primer untuk sekunder */
+    --bs-primary: #133E87;
+    --bs-primary-rgb: 19, 62, 135;
+    --bs-secondary: var(--bs-primary);
+    --bs-secondary-rgb: var(--bs-primary-rgb);
 }
 
-/* Tema font utama */
 body {
-    font-family: 'Merriweather', serif, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
-    background-color: #FFFFFF; /* Latar belakang diganti menjadi PUTIH */
-    padding-top: 100px; /* Memberi ruang di atas untuk fixed navbar */
+    font-family: 'Roboto', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    background-color: #FFFFFF;
+    padding-top: 100px;
 }
 
+.bg-custom-biru {
+    background-color: #133E87 !important;
+}
 
-/* Gaya umum Bootstrap override/tambahan */
 .navbar-brand {
     font-weight: bold;
 }
 
 .rounded-4 {
-    border-radius: 0.5rem; /* Pastikan ini konsisten dengan penggunaan Bootstrap */
+    border-radius: 0.5rem;
 }
 
 .shadow {
-    /* Ini adalah shadow default Bootstrap */
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.1) !important;
 }
 
-/* Gaya untuk tombol WhatsApp mengambang */
 .whatsapp-float {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    z-index: 9999; /* Pastikan di atas elemen lain */
-    background-color: #25D366; /* Warna hijau WhatsApp */
+    z-index: 9999;
+    background-color: #25D366;
     padding: 10px;
-    border-radius: 50%; /* Membuatnya bulat sempurna */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3); /* Bayangan untuk efek terangkat */
-    animation: bounce 2s infinite; /* Animasi memantul */
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    animation: bounce 2s infinite;
 }
 
-/* Keyframes untuk animasi memantul */
 @keyframes bounce {
     0%, 100% { transform: translateY(0); }
-    20% { transform: translateY(-5px); } /* Sedikit naik */
+    20% { transform: translateY(-5px); }
 }
 
-/* Gaya untuk bagian statistik */
 .statistics-section {
-    /* Menggunakan path gambar yang benar dari home.blade.php */
     background-image: url('../images/kucing-banyak.png');
     background-size: cover;
     background-position: center;
-    min-height: 300px; /* Ditambahkan kembali untuk memastikan tinggi minimal */
+    min-height: 300px;
     padding: 80px 0;
     position: relative;
 }
 
-/* Overlay gelap di atas gambar background statistik */
 .statistics-section .overlay {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(var(--bs-primary-rgb), 0.85); /* Menggunakan warna primer dengan opasitas */
-    z-index: 1; /* Pastikan overlay di atas gambar tapi di bawah konten */
+    background-color: rgba(var(--bs-primary-rgb), 0.85);
+    z-index: 1;
 }
 
-/* Konten di dalam bagian statistik */
 .statistics-section .container {
     position: relative;
-    z-index: 2; /* Pastikan konten di atas overlay */
+    z-index: 2;
 }
 
 .statistics-section h2 {
@@ -104,60 +78,82 @@ body {
     font-size: 3rem;
 }
 
-/* Gaya untuk transisi navbar */
 .transition-navbar {
     transition: all 0.3s ease;
 }
 
-/* Gaya navbar saat discroll */
 .navbar.scrolled {
-    background-color: var(--bs-primary) !important; /* Menggunakan warna primer saat digulir */
-    box-shadow: 0 2px 10px rgba(0,0,0,0.15) !important; /* Bayangan saat digulir */
+    background-color: var(--bs-primary) !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15) !important;
 }
 
-/* Warna link dan brand navbar saat discroll */
 .navbar.scrolled .nav-link,
 .navbar.scrolled .navbar-brand {
     color: white !important;
 }
 
-/* BARU DITAMBAHKAN/DIUBAH: Gaya untuk navbar saat tidak discroll (default) */
-/* Pastikan warna latar belakang dan teks selalu terlihat */
 #mainNavbar:not(.scrolled) {
-    background-color: var(--bs-primary) !important; /* Menggunakan warna primer Anda */
-    box-shadow: 0 2px 10px rgba(0,0,0,0.15) !important; /* Menambahkan shadow untuk estetika */
+    background-color: var(--bs-primary) !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15) !important;
 }
 
 #mainNavbar:not(.scrolled) .nav-link,
 #mainNavbar:not(.scrolled) .navbar-brand {
-    color: white !important; /* Pastikan teks tetap putih */
+    color: white !important;
 }
 
-/* BARU DITAMBAHKAN/DIUBAH: Pastikan semua nav-link di navbar-light berwarna putih */
 .navbar-light .navbar-nav .nav-link {
     color: white !important;
 }
+
 .navbar-light .navbar-brand {
     color: white !important;
 }
 
-
-/* Gaya untuk gambar card di bagian lain */
-.card-img-top {
-    height: 280px;
-    object-fit: cover; /* Memastikan gambar mengisi area tanpa terdistorsi */
-    object-position: center; /* Memusatkan gambar */
+.symptom-card {
+    transition: 0.3s ease all;
+    transform-origin: center;
 }
 
-/* Gaya eksplisit untuk tombol Primary */
+.symptom-card:hover {
+    background-color: #f8f9fa;
+    transform: scale(1.01);
+}
+
+.symptom-card.active {
+    border: 2px solid #0d6efd !important;
+    box-shadow: 0 0 20px rgba(13, 110, 253, 0.5);
+    animation: pulse 0.4s ease;
+    transform: scale(1.03);
+    background-color: #e7f1ff;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 rgba(13,110,253,0.5); }
+    50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(13,110,253,0.5); }
+    100% { transform: scale(1.03); box-shadow: 0 0 10px rgba(13,110,253,0.5); }
+}
+
+.card-img-top {
+    height: 280px;
+    object-fit: cover;
+    object-position: center;
+}
+
 .btn-primary {
     background-color: var(--bs-primary) !important;
     border-color: var(--bs-primary) !important;
-    color: #fff !important; /* Pastikan teks putih agar terbaca */
+    color: #fff !important;
+}
+
+.btn-primary2 {
+    background-color: #133E87 !important;
+    border-color: #133E87 !important;
+    color: #fff !important;
 }
 
 .btn-primary:hover {
-    background-color: #0c316d !important; /* Warna sedikit lebih gelap untuk hover */
+    background-color: #0c316d !important;
     border-color: #0c316d !important;
 }
 
@@ -165,60 +161,76 @@ body {
 .btn-primary.focus {
     background-color: #0c316d !important;
     border-color: #0c316d !important;
-    box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.5) !important; /* Efek shadow focus */
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.5) !important;
 }
 
 .btn-primary:active,
 .btn-primary.active {
-    background-color: #08214a !important; /* Warna lebih gelap untuk active/pressed */
+    background-color: #08214a !important;
     border-color: #08214a !important;
 }
 
 .btn-primary:disabled,
 .btn-primary.disabled {
-    background-color: var(--bs-primary) !important; /* Pertahankan warna asli untuk disabled */
+    background-color: var(--bs-primary) !important;
     border-color: var(--bs-primary) !important;
-    opacity: 0.65; /* Opasitas standar untuk disabled */
+    opacity: 0.65;
 }
 
-/* Spasi antar section */
+.btn-outline-primary {
+    color: #133E87 !important;
+    border-color: #133E87 !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: #133E87 !important;
+    color: white !important;
+    border-color: #133E87 !important;
+}
+
+.btn-outline-primary.active {
+    background-color: #133E87 !important;
+    color: white !important;
+    border-color: #133E87 !important;
+}
+
+.btn-outline-primary:focus,
+.btn-outline-primary.focus {
+    box-shadow: 0 0 0 0.25rem rgba(19, 62, 135, 0.5) !important;
+}
+
 section {
-    margin-bottom: 80px; /* Jarak bawah antar setiap section */
+    margin-bottom: 80px;
 }
 
-/* Gaya untuk elemen yang menggunakan .bg-primary-custom */
 .bg-primary-custom {
-    background-color: var(--bs-primary) !important; /* Menggunakan warna primer */
+    background-color: var(--bs-primary) !important;
     padding: 50px;
     border-radius: 10px;
-    overflow: hidden; /* Penting: Pastikan ini ada untuk menahan gambar anak yang absolute */
+    overflow: hidden;
 }
 
-/* BARU DITAMBAHKAN/DIUBAH: Gaya untuk gambar kontak di Hubungi Kami */
 .contact-image {
     position: absolute;
     top: 10px;
     right: 10px;
-    /* Menggunakan max-width untuk fleksibilitas di layar besar */
-    max-width: 250px; /* Misalnya, maksimum 250px di desktop */
-    height: auto; /* Tinggi menyesuaikan proporsi */
+    max-width: 250px;
+    height: auto;
 }
 
 .contact-image img {
-    width: 100%; /* Gambar mengisi lebar container-nya */
-    height: auto; /* Tinggi mengikuti proporsi asli gambar */
-    object-fit: cover; /* Pastikan gambar mengisi area container tanpa terdistorsi */
-    border-radius: 50%; /* Pertahankan bentuk bulat */
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
-
-/* Media Query untuk responsiveness */
 @media (max-width: 768px) {
     .statistics-section h2 {
         font-size: 2.5rem;
     }
-    /* BARU DITAMBAHKAN/DIUBAH: Hilangkan gambar kontak di mode mobile */
+
     .contact-image {
-        display: none; /* Menyembunyikan seluruh container gambar di mobile */
+        display: none;
     }
 }

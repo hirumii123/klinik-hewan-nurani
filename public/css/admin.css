@@ -1,209 +1,180 @@
 /* public/css/admin.css */
 
-/* --- GENERAL LAYOUT STYLES --- */
 html, body {
-    height: 100%; /* Penting untuk memastikan 100vh bekerja dengan baik pada sidebar */
+    height: 100%;
     margin: 0;
     padding: 0;
 }
 
 body {
     font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background-color: #f8f9fa; /* Latar belakang body untuk admin panel */
+    background-color: #f8f9fa;
 }
 
-/* Flex container utama untuk sidebar dan konten */
-.d-flex {
-    /* Hapus min-height: 100vh; dari sini.
-       Ini yang membuat konten ikut memanjang. */
-    /* min-height: 100vh; */
-}
-
-/* Wrapper untuk navbar atas dan area konten */
 .content-wrapper {
-    flex-grow: 1; /* Mengambil sisa ruang horizontal */
+    flex-grow: 1;
     display: flex;
-    flex-direction: column; /* Mengatur item secara vertikal */
-    /* Hapus min-height dari sini juga, biarkan mengikuti konten */
+    flex-direction: column;
 }
 
-/* Area utama konten di dalam wrapper */
 .content-area {
-    padding: 30px; /* Padding di sekitar konten */
-    background-color: #ffffff; /* Latar belakang putih untuk area konten */
-    /* Hapus min-height di sini, biarkan tingginya mengikuti konten */
+    padding: 30px;
+    background-color: #ffffff;
 }
 
-/* --- TOP NAVBAR STYLES --- */
 .navbar-top {
     background-color: #ffffff;
     padding: 15px 30px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Bayangan lembut */
-    margin-bottom: 20px; /* Jarak antara navbar dan konten */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
     display: flex;
-    align-items: center; /* Pusatkan item secara vertikal */
-    justify-content: space-between; /* Menjauhkan item (tombol dan judul) */
+    align-items: center;
+    justify-content: space-between;
 }
 
 .navbar-top h4 {
-    flex-grow: 1; /* Judul mengambil ruang sebanyak mungkin */
-    text-align: center; /* Pusatkan teks judul */
+    flex-grow: 1;
+    text-align: center;
     margin: 0;
-    padding-right: 36px; /* Mengimbangi lebar tombol toggle di kiri */
+    padding-right: 36px;
 }
 
-/* Tombol Toggle Sidebar */
 .navbar-toggler-sidebar {
     background-color: transparent;
     border: none;
-    color: #2c3e50; /* Warna ikon tombol */
+    color: #2c3e50;
     font-size: 1.5rem;
     cursor: pointer;
-    z-index: 1000; /* Pastikan di atas elemen lain */
+    z-index: 1000;
 }
 
-
-/* --- SIDEBAR STYLES --- */
 .sidebar {
     min-width: 250px;
     max-width: 250px;
-    background-color: #2c3e50; /* Warna biru gelap modern */
-    color: #ecf0f1; /* Warna teks sidebar */
+    background-color: #2c3e50;
+    color: #ecf0f1;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease; /* Transisi untuk lebar dan padding saat collapse */
+    transition: all 0.3s ease;
     padding: 20px 0;
     display: flex;
-    flex-direction: column; /* Mengatur item menu secara vertikal */
-    min-height: 100vh; /* **Ini yang membuat sidebar selalu setinggi viewport** */
-    box-sizing: border-box; /* Padding dihitung di dalam lebar/tinggi */
-    position: sticky; /* Membuat sidebar tetap saat konten digulir */
-    top: 0; /* Menempel di bagian atas viewport */
+    flex-direction: column;
+    min-height: 100vh;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
 }
 
-/* Gaya sidebar saat di-collapse */
 .sidebar.collapsed {
-    min-width: 80px; /* Lebar saat collapse */
+    min-width: 80px;
     max-width: 80px;
     padding: 20px 0;
 }
 
-/* Judul "Admin CMS" di sidebar */
 .sidebar .h5 {
     color: #ecf0f1;
     text-align: center;
     margin-bottom: 30px;
     font-weight: 600;
-    white-space: nowrap; /* Mencegah teks wrapping */
-    overflow: hidden; /* Sembunyikan overflow */
-    transition: opacity 0.3s ease; /* Transisi saat judul menghilang */
+    white-space: nowrap;
+    overflow: hidden;
+    transition: opacity 0.3s ease;
 }
 
-/* Judul saat sidebar di-collapse */
 .sidebar.collapsed .h5 {
-    opacity: 0; /* Sembunyikan judul */
-    height: 0; /* Sembunyikan sepenuhnya */
+    opacity: 0;
+    height: 0;
     margin-bottom: 0;
 }
 
-/* Gaya untuk link navigasi di sidebar */
 .sidebar a {
     color: #ecf0f1;
     text-decoration: none;
     display: flex;
-    align-items: center; /* Pusatkan ikon dan teks */
+    align-items: center;
     padding: 12px 25px;
-    transition: background-color 0.3s ease, color 0.3s ease, padding 0.3s ease; /* Transisi untuk hover dan collapse */
-    border-left: 5px solid transparent; /* Garis indikator aktif */
+    transition: background-color 0.3s ease, color 0.3s ease, padding 0.3s ease;
+    border-left: 5px solid transparent;
     white-space: nowrap;
     overflow: hidden;
 }
 
-/* Link saat sidebar di-collapse */
 .sidebar.collapsed a {
-    padding: 12px 0; /* Padding lebih kecil untuk ikon saja */
-    justify-content: center; /* Pusatkan ikon */
+    padding: 12px 0;
+    justify-content: center;
 }
 
-/* Gaya saat link aktif atau di-hover */
 .sidebar a.active,
 .sidebar a:hover {
-    background-color: #34495e; /* Warna latar belakang saat aktif/hover */
+    background-color: #34495e;
     color: #ffffff;
-    border-left-color: #3498db; /* Warna garis indikator */
+    border-left-color: #3498db;
 }
 
-/* Gaya teks link aktif */
 .sidebar a.active {
-    font-weight: bold; /* Teks aktif lebih tebal */
+    font-weight: bold;
 }
 
-/* Gaya untuk ikon di link sidebar */
 .sidebar a i {
-    width: 20px;                /* ⬅ lebar tetap */
-    margin-right: 10px;         /* ⬅ spasi antara ikon dan teks */
-    text-align: center;         /* ⬅ agar ikon rata tengah */
+    width: 20px;
+    margin-right: 10px;
+    text-align: center;
     font-size: 1.1em;
-    flex-shrink: 0;             /* ⬅ cegah ikon menyusut */
+    flex-shrink: 0;
 }
 
-
-/* Ikon saat sidebar di-collapse */
 .sidebar.collapsed a i {
-    margin-right: 0; /* Hilangkan margin saat collapse */
+    margin-right: 0;
 }
 
-/* Gaya untuk teks di link sidebar */
 .sidebar a span {
-    transition: opacity 0.3s ease, width 0.3s ease; /* Transisi saat teks menghilang */
+    transition: opacity 0.3s ease, width 0.3s ease;
 }
 
-/* Teks di link sidebar saat di-collapse */
 .sidebar.collapsed a span {
-    opacity: 0; /* Sembunyikan teks */
-    width: 0; /* Sembunyikan sepenuhnya */
+    opacity: 0;
+    width: 0;
 }
 
-/* --- DASHBOARD CARD STYLES --- */
 .card-dashboard {
-    border-radius: 12px; /* Sudut lebih membulat */
+    border-radius: 12px;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transisi untuk efek hover */
-    border: none; /* Hilangkan border default Bootstrap */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Bayangan modern */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .card-dashboard:hover {
-    transform: translateY(-5px); /* Sedikit naik saat di-hover */
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); /* Bayangan lebih kuat saat di-hover */
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
 }
 
 .card-dashboard .card-body {
-    padding: 25px; /* Padding yang lebih lega */
+    padding: 25px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 150px; /* Tinggi minimal untuk kartu yang seragam */
+    min-height: 150px;
 }
 
 .card-dashboard h2 {
-    font-size: 2.8rem; /* Ukuran angka lebih besar */
+    font-size: 2.8rem;
     margin-bottom: 5px;
-    font-weight: 700; /* Lebih tebal */
-    color: inherit; /* Warna angka mengikuti warna teks kartu */
+    font-weight: 700;
+    color: inherit;
 }
 
 .card-dashboard p {
-    font-size: 1.1rem; /* Ukuran teks deskripsi */
-    opacity: 0.9; /* Sedikit transparan */
+    font-size: 1.1rem;
+    opacity: 0.9;
 }
 
 .card-dashboard a {
-    margin-top: 15px; /* Jarak dengan teks di atasnya */
+    margin-top: 15px;
     font-weight: 600;
-    text-decoration: none; /* Hilangkan underline default */
+    text-decoration: none;
     position: relative;
-    padding-bottom: 2px; /* Ruang untuk underline custom */
+    padding-bottom: 2px;
 }
 
 .card-dashboard a::after {
@@ -213,21 +184,19 @@ body {
     bottom: 0;
     width: 100%;
     height: 2px;
-    background-color: currentColor; /* Warna underline mengikuti warna teks link */
-    transform: scaleX(0); /* Awalnya tersembunyi */
-    transition: transform 0.3s ease; /* Transisi untuk efek underline */
+    background-color: currentColor;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
 }
 
 .card-dashboard a:hover::after {
-    transform: scaleX(1); /* Tampilkan underline saat di-hover */
+    transform: scaleX(1);
 }
 
-/* Penyesuaian warna latar belakang kartu (override Bootstrap) */
 .card-dashboard.text-bg-success { background-color: #28a745 !important; }
 .card-dashboard.text-bg-primary { background-color: #007bff !important; }
 .card-dashboard.text-bg-warning { background-color: #ffc107 !important; }
 .card-dashboard.text-bg-danger { background-color: #dc3545 !important; }
 
-/* Warna teks link untuk kartu warning agar terlihat jelas (override Bootstrap) */
-.card-dashboard.text-bg-warning a { color: #343a40 !important; } /* Teks gelap untuk kartu kuning */
+.card-dashboard.text-bg-warning a { color: #343a40 !important; }
 .card-dashboard.text-bg-warning a::after { background-color: #343a40 !important; }

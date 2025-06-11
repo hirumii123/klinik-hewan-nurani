@@ -16,15 +16,29 @@
                             <option value="0.8">Yakin (80%)</option>
                             <option value="0.6">Lumayan (60%)</option>
                             <option value="0.4">Cukup (40%)</option>
-                            <!-- <option value="0.2">Tidak Tahu (20%)</option> -->
-                            <!-- <option value="0.0">Tidak (0%)</option> -->
-                        </select>
+                            </select>
                     </div>
                 @endforeach
 
-                <button type="submit" class="btn btn-primary mt-3">Lihat Hasil Diagnosa</button>
+                <button type="submit" id="submitResultBtn" class="btn btn-primary mt-3">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                    <span class="button-text">Lihat Hasil Diagnosa</span>
+                </button>
             </form>
         </div>
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    const konfirmasiForm = document.querySelector('form');
+    const submitResultBtn = document.getElementById('submitResultBtn');
+
+    konfirmasiForm.addEventListener('submit', function() {
+        submitResultBtn.disabled = true;
+        submitResultBtn.querySelector('.spinner-border').style.display = 'inline-block';
+        submitResultBtn.querySelector('.button-text').innerText = 'Loading...';
+    });
+</script>
+@endpush
