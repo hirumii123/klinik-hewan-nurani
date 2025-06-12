@@ -152,7 +152,7 @@
     </footer> -->
 
     <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/6281226005692?text=Halo%20admin%20Nurani%20Petshop,%20saya%20mau%20tanya..." class="whatsapp-float" target="_blank">
+    <a href="https://wa.me/6281226005692?text=Halo%20admin%20Nurani%20Pet Care,%20saya%20mau%20tanya..." class="whatsapp-float" target="_blank">
     <img src="{{ asset('images/WhatsApp.svg') }}" alt="WhatsApp" width="50">
     </a>
 

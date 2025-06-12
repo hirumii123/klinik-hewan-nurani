@@ -136,7 +136,7 @@
                 <div class="bg-primary-custom p-5 pe-0 rounded position-relative">
                     <h2 class="display-6 fw-bold mb-3 text-white">Hubungi Kami</h2>
                     <p class="lead text-white">Hubungi WhatsApp kami untuk mendapatkan informasi <br> lebih lanjut tentang Klinik Hewan Nurani.</p>
-                    <a href="https://api.whatsapp.com/send/?phone=6281226005692&text=Halo+admin+Nurani+Petshop%2C+saya+mau+tanya...&type=phone_number&app_absent=0" class="btn btn-light btn-lg px-4" target="_blank">
+                    <a href="https://api.whatsapp.com/send/?phone=6281226005692&text=Halo+admin+Nurani+Pet Care%2C+saya+mau+tanya...&type=phone_number&app_absent=0" class="btn btn-light btn-lg px-4" target="_blank">
                         Hubungi Kami
                     </a>
                     <div class="contact-image position-absolute top-0 end-0 h-100">
