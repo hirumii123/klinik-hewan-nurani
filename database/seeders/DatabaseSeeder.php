@@ -17,6 +17,11 @@ class DatabaseSeeder extends Seeder
             // SymptomsSeeder::class,
             // DiseasesSeeder::class,
             RulesSeeder::class,
+            UserSeeder::class,
+            SymptomsSeeder::class,
+            DiseasesSeeder::class,
+            SymptomCategorySeeder::class,
+            UpdateSymptomCategorySeeder::class,
         ]);
 
         // User::factory()->create([

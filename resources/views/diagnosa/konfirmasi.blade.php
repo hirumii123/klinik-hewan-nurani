@@ -6,7 +6,7 @@
         <div class="card-body p-4">
             <h4 class="mb-4">🧠 Seberapa Yakin Kamu Mengalami Gejala Berikut?</h4>
 
-            <div id="no-symptoms-message" class="alert alert-success text-center py-5 rounded-3" role="alert" style="display: {{ $noSymptomsSelected ? 'block' : 'none' }};">
+            <div id="no-symptoms-message" class="text-center py-5 rounded-3" role="alert" style="display: {{ $noSymptomsSelected ? 'block' : 'none' }};">
                 <img src="https://cdn.pixabay.com/photo/2014/04/13/20/49/cat-323262_1280.jpg" alt="Kucing Sehat" class="img-fluid rounded mb-3" style="max-width: 200px;">
                 <h5 class="fw-bold">😻 Sepertinya kucingmu sehat-sehat saja!</h5>
                 <p class="mb-4">Kalau begitu, tetap jaga kesehatannya ya! Tapi kalau ragu, kamu bisa mulai diagnosa ulang kapan saja.</p>
@@ -36,7 +36,7 @@
 
                 <div class="d-flex justify-content-end gap-2 mt-4" id="form-buttons-container">
                     <a href="{{ route('diagnosa.reset') }}" id="new-diagnosis-btn-in-form" class="btn btn-outline-secondary" style="display: none;">
-                        🔁 Mulai Diagnosa Baru
+                        Mulai Diagnosa Baru
                     </a>
                     <button type="submit" id="submitResultBtn" class="btn btn-primary">
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
