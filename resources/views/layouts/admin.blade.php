@@ -50,6 +50,11 @@
                         <i class="fas fa-tree"></i> <span>Rule Shortcut FC</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('feedback.index') }}" class="nav-link {{ request()->is('admin/feedback*') ? 'active' : '' }}">
+                        <i class="fas fa-comment-dots"></i> <span>Feedback</span>
+                    </a>
+                </li>
             </ul>
         </div>
 
