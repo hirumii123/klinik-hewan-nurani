@@ -13,7 +13,7 @@
                     @foreach ($cfUserInputs as $code => $cf)
                         <li class="list-group-item">
                             <strong>{{ $code }}</strong> - {{ \App\Models\Symptom::where('code', $code)->value('name') }}
-                            <span class="float-end text-muted">Keyakinan: {{ $cf * 100 }}%</span>
+                            <span class="float-end text-muted">Tingkat Keyakinan Gejala: {{ $cf * 100 }}%</span>
                         </li>
                     @endforeach
                 </ul>

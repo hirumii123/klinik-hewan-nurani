@@ -26,21 +26,42 @@ class DiagnosaController extends Controller
     {
         $selectedCodes = $request->input('symptoms', []);
 
-        if (empty($selectedCodes)) {
-            return redirect()->route('diagnosa.index')
-                ->with('error', 'Silakan pilih minimal satu gejala untuk melakukan diagnosa.');
-        }
+        // Menghapus validasi minimal satu gejala
+        // if (empty($selectedCodes)) {
+        //     return redirect()->route('diagnosa.index')
+        //         ->with('error', 'Silakan pilih minimal satu gejala untuk melakukan diagnosa.');
+        // }
 
         $selectedSymptoms = Symptom::whereIn('code', $selectedCodes)->get();
-        return view('diagnosa.konfirmasi', compact('selectedSymptoms'));
+        $noSymptomsSelected = $selectedSymptoms->isEmpty(); // Menentukan apakah tidak ada gejala yang dipilih
+
+        return view('diagnosa.konfirmasi', compact('selectedSymptoms', 'noSymptomsSelected'));
     }
 
     public function hasil(Request $request)
     {
         $cfUserInputs = $request->input('cf_user', []);
+
+        // Menangani jika tidak ada gejala yang dipilih atau semua dihapus di halaman konfirmasi
         if (empty($cfUserInputs)) {
-            return redirect()->route('diagnosa.index')
-                ->with('error', 'Terjadi kesalahan. Silakan ulangi proses diagnosa.');
+            $results = [[
+                'disease' => (object)['code' => 'N/A', 'name' => 'Kucing Sehat', 'solution' => 'Tidak ada penyakit terdeteksi berdasarkan gejala yang dipilih. Terus pantau kesehatan kucing Anda.'],
+                'cf' => 0.0,
+                'percentage' => 0,
+                'details' => [],
+                'steps' => ['Tidak ada gejala yang dipilih.']
+            ]];
+
+            session()->forget(['hasil_diagnosa', 'cf_user_inputs']);
+            session([
+                'hasil_diagnosa' => $results[0],
+                'cf_user_inputs' => $cfUserInputs
+            ]);
+
+            return view('diagnosa.hasil', [
+                'results' => $results,
+                'cfUserInputs' => $cfUserInputs
+            ]);
         }
 
         $shortcutCode = $this->checkTreeShortcut($cfUserInputs);
