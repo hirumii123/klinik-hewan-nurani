@@ -7,7 +7,7 @@
 
 <a href="{{ route('rules.create') }}" class="btn btn-primary mb-3">+ Tambah CF Rules</a>
 
-<table class="table table-bordered align-middle">
+<table class="table table-bordered table-striped align-middle">
     <thead class="table-light">
         <tr>
             <th style="width: 10%">Nama Penyakit</th>

@@ -19,16 +19,21 @@
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Pilih Gejala (boleh lebih dari satu)</label>
-        <div class="row">
+        <label class="form-label">Pilih Gejala Shortcut</label>
+        <div class="form-control" style="height: auto;">
             @foreach ($symptoms as $symptom)
-                <div class="col-md-4">
-                    <div class="form-check">
-                        <input type="checkbox" name="symptom_codes[]" value="{{ $symptom->code }}" class="form-check-input" id="symptom-{{ $symptom->id }}">
-                        <label for="symptom-{{ $symptom->id }}" class="form-check-label">
-                            {{ $symptom->code }} - {{ $symptom->name }}
-                        </label>
-                    </div>
+                <div class="form-check">
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        name="symptom_codes[]"
+                        value="{{ $symptom->code }}"
+                        id="gejala_{{ $symptom->id }}"
+                        {{ in_array($symptom->code, old('symptom_codes', [])) ? 'checked' : '' }}
+                    >
+                    <label class="form-check-label" for="gejala_{{ $symptom->id }}">
+                        {{ $symptom->code }} - {{ $symptom->name }}
+                    </label>
                 </div>
             @endforeach
         </div>
