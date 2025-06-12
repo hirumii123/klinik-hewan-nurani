@@ -47,9 +47,9 @@
                 @endforeach
 
                 <div class="d-flex justify-content-between mt-5">
-                    <button type="button" id="prev-btn" class="btn btn-secondary" disabled>Previous</button>
-                    <button type="button" id="next-btn" class="btn btn-primary">Next</button>
-                    <button type="submit" id="submit-btn" class="btn btn-success d-none">Submit</button>
+                    <button type="button" id="prev-btn" class="btn btn-secondary" disabled>Sebelumnya</button>
+                    <button type="button" id="next-btn" class="btn btn-primary">Selanjutnya</button>
+                    <button type="submit" id="submit-btn" class="btn btn-success d-none">Kirim</button>
                 </div>
             </form>
         </div>

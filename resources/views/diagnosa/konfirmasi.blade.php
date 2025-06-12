@@ -13,6 +13,14 @@
                 <a href="{{ route('diagnosa.reset') }}" id="new-diagnosis-btn-message" class="btn btn-primary" style="display: none;">
                     Mulai Diagnosa Baru
                 </a>
+                {{-- Tombol baru untuk feedback --}}
+                <a href="{{ route('feedback.create') }}" class="btn btn-outline-primary">
+                    <i class="bi bi-lightbulb   "></i>
+                    Ada saran untuk kami?
+                </a>
+
+
+
             </div>
 
             <form id="konfirmasi-form" action="{{ route('diagnosa.hasil') }}" method="POST" style="display: {{ $noSymptomsSelected ? 'none' : 'block' }};">
@@ -34,14 +42,19 @@
                     @endforeach
                 </div>
 
-                <div class="d-flex justify-content-end gap-2 mt-4" id="form-buttons-container">
-                    <a href="{{ route('diagnosa.reset') }}" id="new-diagnosis-btn-in-form" class="btn btn-outline-secondary" style="display: none;">
-                        Mulai Diagnosa Baru
+                <div class="d-flex justify-content-between mt-4" id="form-buttons-container">
+                    <a href="#" onclick="history.back(); return false;" class="btn btn-secondary">
+                        Kembali
                     </a>
-                    <button type="submit" id="submitResultBtn" class="btn btn-primary">
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
-                        <span class="button-text">Lihat Hasil Diagnosa</span>
-                    </button>
+                    <div class="d-flex gap-2">
+                        <a href="{{ route('diagnosa.reset') }}" id="new-diagnosis-btn-in-form" class="btn btn-outline-secondary" style="display: none;">
+                            Mulai Diagnosa Baru
+                        </a>
+                        <button type="submit" id="submitResultBtn" class="btn btn-primary">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                            <span class="button-text">Lihat Hasil Diagnosa</span>
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>

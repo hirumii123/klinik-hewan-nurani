@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\RulesController;
 use App\Http\Controllers\Admin\ShortcutRuleController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FeedbackController;
 
 Route::get('/diagnosa', [DiagnosaController::class, 'index'])->name('diagnosa.index');
 Route::post('/diagnosa/konfirmasi', [DiagnosaController::class, 'konfirmasi'])->name('diagnosa.konfirmasi');
@@ -28,8 +29,10 @@ Route::get('/info-diagnosa', [DiseaseController::class, 'info'])->name('info-dia
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/feedback', [FeedbackController::class, 'create'])->name('feedback.create');
+Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 
-    Route::prefix('admin')->middleware('auth')->group(function () {
+Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::resource('/penyakit', PenyakitController::class)->names('penyakit');
     Route::resource('/gejala', GejalaController::class)->names('gejala');

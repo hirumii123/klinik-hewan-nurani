@@ -38,7 +38,7 @@
                                 <label for="email" class="form-label fw-semibold">Alamat Email</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                    <input id="email" type="email" class="form-control form-control-lg @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="contoh@domain.com">
+                                    <input id="email" type="email" class="form-control form-control-lg @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="">
                                     @error('email')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -51,7 +51,7 @@
                                 <label for="password" class="form-label fw-semibold">Password</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                    <input id="password" type="password" class="form-control form-control-lg @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="********">
+                                    <input id="password" type="password" class="form-control form-control-lg @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="">
                                     {{-- Tombol toggle password --}}
                                     <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                         <i class="bi bi-eye-slash" id="togglePasswordIcon"></i> {{-- Ikon mata tertutup --}}

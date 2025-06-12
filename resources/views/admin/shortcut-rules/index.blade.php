@@ -3,7 +3,7 @@
 @section('title', 'Tree Shortcut')
 
 @section('content')
-<h2 class="mb-4">Rule Shortcut (FC)</h2>
+<h2 class="mb-4">Rule Shortcut FC</h2>
 
 <a href="{{ route('shortcut-rules.create') }}" class="btn btn-primary mb-3">+ Tambah Shortcut</a>
 

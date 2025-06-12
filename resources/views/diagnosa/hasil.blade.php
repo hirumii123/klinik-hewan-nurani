@@ -5,6 +5,7 @@
     <div class="card shadow rounded-4">
         <div class="card-body p-5">
             <h2 class="mb-4 text-primary">🧾 Hasil Diagnosa Kucing</h2>
+            <p class="text-muted mb-4"><small>Hasil diagnosa ini bersifat indikatif dan tidak sepenuhnya akurat. Selalu konsultasikan dengan dokter hewan profesional untuk diagnosa dan penanganan lebih lanjut.</small></p>
 
             {{-- Gejala yang Dipilih --}}
             <div class="mb-4">
