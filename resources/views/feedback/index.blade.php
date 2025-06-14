@@ -3,7 +3,7 @@
 @section('title', 'Daftar Feedback')
 
 @section('content')
-<h2 class="mb-4">Daftar Feedback Pengguna</h2>
+<h2 class="mb-4">Feedback</h2>
 
 <div class="table-responsive">
     <table class="table table-bordered table-striped align-middle">
@@ -24,7 +24,7 @@
                     <td>{{ $feedback->suggested_symptoms ?? '-' }}</td>
                     <td>{{ $feedback->created_at->format('d/m/Y H:i') }}</td>
                     <td>
-                        <form action="{{ route('feedback.destroy', $feedback->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus feedback ini?')" class="d-inline">
+                        <form action="{{ route('feedback-admin.destroy', $feedback->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus feedback ini?')" class="d-inline">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-sm"><img src="{{ asset('images/delete.png') }}" width="24"><span> Delete</span></button>

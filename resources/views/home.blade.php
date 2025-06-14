@@ -26,7 +26,9 @@
             </div>
             <div class="col-lg-6 text-start">
                 <h2 class="display-6 fw-bold mb-3">Tentang Kami</h2>
-                <p style="font-size: 20px;"><b>Klinik Hewan Nurani</b> adalah klinik hewan di Yogyakarta yang dikenal dengan pelayanan ramah dan profesional. Klinik ini tidak hanya menyediakan layanan kesehatan untuk kucing, tetapi juga menawarkan pengalaman berbeda dengan adanya kedai kopi bernuansa alam di halaman belakang.Pelanggan dapat bersantai menikmati hidangan sambil menunggu, ditemani musik pilihan. Selain itu, klinik ini juga memiliki area bermain kucing, menjadikannya tempat yang ideal bagi para pecinta hewan peliharaan.</p>
+                <p style="font-size: 20px;"><b>Klinik Hewan Nurani</b> adalah klinik hewan terpercaya yang berlokasi di Kota Yogyakarta. Dikenal dengan pelayanan yang ramah dan profesional, klinik ini fokus memberikan layanan kesehatan terbaik untuk kucing serta hewan peliharaan lainnya. Klinik ini melayani berbagai kebutuhan medis seperti penanganan hewan sakit, keracunan, infeksi jamur, parasit, hingga konsultasi kesehatan hewan secara menyeluruh.
+
+                Dengan dukungan tim dokter hewan berpengalaman, Klinik Hewan Nurani memastikan setiap pengobatan dilakukan secara aman, tepat, dan berkualitas. Selain itu, biaya perawatan di klinik ini juga tergolong terjangkau, menjadikannya pilihan ideal bagi para pecinta hewan di Yogyakarta.</p>
             </div>
         </div>
     </section>
@@ -125,6 +127,59 @@
                     </div>
                     <p class="mt-3"><strong>Alamat:</strong> Kronggahan, Jl. Kabupaten, RT.4/RW.2, Kranggahan I, Trihanggo, Kec. Gamping, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55291</p>
                     <p><strong>Telp:</strong> +62-8122-6005-692</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mt-5" data-aos="fade-up" id="jadwal-praktik">
+        <div class="row justify-content-center mb-4">
+            <div class="col-lg-8 text-center">
+                <h2 class="display-6 fw-bold mb-3">Jam Operasional</h2>
+                <p class="lead">Klinik Hewan Nurani buka setiap hari untuk memberikan pelayanan terbaik bagi hewan kesayangan Anda.</p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="table-responsive">
+                    <table class="table table-bordered text-center align-middle">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Hari</th>
+                                <th>Jam Praktik</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Senin</td>
+                                <td>09.00 - 23.00 WIB</td>
+                            </tr>
+                            <tr>
+                                <td>Selasa</td>
+                                <td>09.00 - 23.00 WIB</td>
+                            </tr>
+                            <tr>
+                                <td>Rabu</td>
+                                <td>09.00 - 23.00 WIB</td>
+                            </tr>
+                            <tr>
+                                <td>Kamis</td>
+                                <td>09.00 - 23.00 WIB</td>
+                            </tr>
+                            <tr>
+                                <td>Jumat</td>
+                                <td>09.00 - 23.00 WIB</td>
+                            </tr>
+                            <tr>
+                                <td>Sabtu</td>
+                                <td>09.00 - 23.00 WIB</td>
+                            </tr>
+                            <tr>
+                                <td>Minggu</td>
+                                <td>09.00 - 23.00 WIB</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

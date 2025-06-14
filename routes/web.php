@@ -9,7 +9,8 @@ use App\Http\Controllers\Admin\KategoriGejalaController;
 use App\Http\Controllers\Admin\RulesController;
 use App\Http\Controllers\Admin\ShortcutRuleController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\FeedbackController;
+use App\Http\Controllers\Admin\AdminFeedbackController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\AuthController;
 
 Route::get('/diagnosa', [DiagnosaController::class, 'index'])->name('diagnosa.index');
@@ -41,5 +42,5 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         ->names('kategori-gejala');
     Route::resource('/rules', RulesController::class)->names('rules');
     Route::resource('/shortcut-rules', ShortcutRuleController::class)->names('shortcut-rules');
-    Route::resource('/feedback', FeedbackController::class)->names('feedback');
+    Route::resource('/feedback-admin', AdminFeedbackController::class)->names('feedback-admin');
 });

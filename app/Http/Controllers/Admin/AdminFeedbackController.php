@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Feedback; // Pastikan untuk mengimpor model Feedback
 use Illuminate\Http\Request;
 
-class FeedbackController extends Controller
+class AdminFeedbackController extends Controller
 {
     /**
      * Menampilkan daftar feedback.
@@ -30,6 +30,6 @@ class FeedbackController extends Controller
         $feedback = Feedback::findOrFail($id);
         $feedback->delete();
 
-        return redirect()->route('feedback.index')->with('success', 'Feedback berhasil dihapus.');
+        return redirect()->route('feedback-admin.index')->with('success', 'Feedback berhasil dihapus.');
     }
 }
