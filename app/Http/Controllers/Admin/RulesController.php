@@ -10,10 +10,21 @@ use App\Models\Symptom;
 
 class RulesController extends Controller
 {
-    public function index()
+    public function index(Request $request) // Tambahkan Request sebagai parameter
     {
-        $rules = Rule::with(['disease', 'symptom'])->orderBy('id')->get();
-        return view('admin.rules.index', compact('rules'));
+        $query = Rule::with(['disease', 'symptom'])->orderBy('id', 'asc'); // Mulai query dengan eager loading
+
+        // Logika filter berdasarkan penyakit
+        if ($request->has('filter_disease') && $request->filter_disease != '') {
+            $diseaseId = $request->filter_disease;
+            $query->where('disease_id', $diseaseId);
+        }
+
+        $rules = $query->get(); // Jalankan query
+
+        $diseases = Disease::orderBy('code')->get(); // Ambil semua penyakit untuk dropdown filter (diurutkan berdasarkan kode)
+
+        return view('admin.rules.index', compact('rules', 'diseases')); // Kirimkan $diseases ke view
     }
 
     public function create()
@@ -86,4 +97,3 @@ class RulesController extends Controller
         return redirect()->route('rules.index')->with('success', 'Rule berhasil dihapus.');
     }
 }
-

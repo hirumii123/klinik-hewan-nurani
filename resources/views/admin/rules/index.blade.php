@@ -5,34 +5,59 @@
 @section('content')
 <h2 class="mb-4">CF Rules</h2>
 
-<a href="{{ route('rules.create') }}" class="btn btn-primary mb-3">+ Tambah CF Rules</a>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <a href="{{ route('rules.create') }}" class="btn btn-primary">+ Tambah CF Rules</a>
 
-<table class="table table-bordered table-striped align-middle">
-    <thead class="table-light">
-        <tr>
-            <th style="width: 10%">Nama Penyakit</th>
-            <th>Nama Gejala</th>
-            <th>CF Value</th>
-            <th style="width: 25%">Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($rules as $rule)
+    <form action="{{ route('rules.index') }}" method="GET" class="d-flex gap-2">
+        <div class="input-group">
+            <select name="filter_disease" class="form-select">
+                <option value="">Filter Berdasarkan Penyakit</option>
+                @foreach ($diseases as $disease)
+                    <option value="{{ $disease->id }}" {{ request('filter_disease') == $disease->id ? 'selected' : '' }}>
+                        {{ $disease->code }} - {{ $disease->name }}
+                    </option>
+                @endforeach
+            </select>
+            <button class="btn btn-outline-secondary" type="submit">Filter</button>
+        </div>
+        @if(request('filter_disease'))
+            <a href="{{ route('rules.index') }}" class="btn btn-danger">Reset</a>
+        @endif
+    </form>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped align-middle">
+        <thead class="table-light">
             <tr>
-                <td>{{ $rule->disease->code }} - {{ $rule->disease->name }}</td>
-                <td>{{ $rule->symptom->code }} - {{ $rule->symptom->name }}</td>
-                <td>{{ $rule->cf_value }}</td>
-                <td>
-                    <div class="d-flex gap-2 justify-content-start">
-                        <a href="{{ route('rules.edit', $rule->id) }}" class="btn btn-sm"><img src="{{ asset('images/edit.png') }}" width="24"><span> Edit</span></a>
-                        <form action="{{ route('rules.destroy', $rule->id) }}" method="POST" onsubmit="return confirm('Yakin hapus?')">
-                            @csrf @method('DELETE')
-                            <button class="btn btn-sm"><img src="{{ asset('images/delete.png') }}" width="24"><span> Delete</span></button>
-                        </form>
-                    </div>
-                </td>
+                <th style="width: 10%">Nama Penyakit</th>
+                <th>Nama Gejala</th>
+                <th>CF Value</th>
+                <th style="width: 25%">Aksi</th>
             </tr>
-        @endforeach
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @forelse ($rules as $rule)
+                <tr>
+                    <td>{{ $rule->disease->code }} - {{ $rule->disease->name }}</td>
+                    <td>{{ $rule->symptom->code }} - {{ $rule->symptom->name }}</td>
+                    <td>{{ $rule->cf_value }}</td>
+                    <td>
+                        <div class="d-flex gap-2 justify-content-start">
+                            <a href="{{ route('rules.edit', $rule->id) }}" class="btn btn-sm"><img src="{{ asset('images/edit.png') }}" width="24"><span> Edit</span></a>
+                            <form action="{{ route('rules.destroy', $rule->id) }}" method="POST" onsubmit="return confirm('Yakin hapus?')">
+                                @csrf @method('DELETE')
+                                <button class="btn btn-sm"><img src="{{ asset('images/delete.png') }}" width="24"><span> Delete</span></button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="4" class="text-center">Tidak ada data rule yang ditemukan.</td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
+</div>
 @endsection

@@ -5,6 +5,23 @@
 @section('content')
 <h2 class="mb-4">Feedback</h2>
 
+<div class="d-flex justify-content-end mb-3"> {{-- Menggunakan justify-content-end untuk menempatkan filter di kanan --}}
+    <form action="{{ route('feedback-admin.index') }}" method="GET" class="d-flex gap-2 align-items-center">
+        <div class="input-group">
+            <span class="input-group-text">Dari Tanggal</span>
+            <input type="date" name="start_date" class="form-control" value="{{ request('start_date') }}">
+        </div>
+        <div class="input-group">
+            <span class="input-group-text">Sampai Tanggal</span>
+            <input type="date" name="end_date" class="form-control" value="{{ request('end_date') }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Filter</button>
+        @if(request('start_date') || request('end_date'))
+            <a href="{{ route('feedback-admin.index') }}" class="btn btn-danger">Reset</a>
+        @endif
+    </form>
+</div>
+
 <div class="table-responsive">
     <table class="table table-bordered table-striped align-middle">
         <thead class="table-light">

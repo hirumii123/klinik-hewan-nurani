@@ -5,7 +5,26 @@
 @section('content')
 <h2 class="mb-4">Gejala</h2>
 
-<a href="{{ route('gejala.create') }}" class="btn btn-primary mb-3">+ Tambah Gejala</a>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <a href="{{ route('gejala.create') }}" class="btn btn-primary mb-3">+ Tambah Gejala</a>
+
+    <form action="{{ route('gejala.index') }}" method="GET" class="d-flex gap-2">
+        <div class="input-group">
+            <select name="filter_category" class="form-select">
+                <option value="">Filter Berdasarkan Kategori</option>
+                @foreach ($kategoriList as $kategori)
+                    <option value="{{ $kategori->id }}" {{ request('filter_category') == $kategori->id ? 'selected' : '' }}>
+                        {{ $kategori->name }}
+                    </option>
+                @endforeach
+            </select>
+            <button class="btn btn-outline-secondary" type="submit">Filter</button>
+        </div>
+        @if(request('filter_category'))
+            <a href="{{ route('gejala.index') }}" class="btn btn-danger">Reset</a>
+        @endif
+    </form>
+</div>
 
 <div class="table-responsive">
     <table class="table table-bordered table-striped align-middle">
@@ -20,14 +39,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($gejalas as $gejala)
+            @forelse ($gejalas as $gejala)
                 <tr>
                     <td>{{ $gejala->code }}</td>
                     <td>{{ $gejala->name }}</td>
                     <td>{{ $gejala->kategori->name ?? '-' }}</td>
                     <td>
                         @if ($gejala->image)
-                            {{-- Tambahkan link untuk memicu modal --}}
                             <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal"
                                data-image-url="{{ asset($gejala->image) }}"
                                data-image-source="{{ $gejala->image_source ?? 'Tidak ada sumber' }}"
@@ -49,12 +67,15 @@
                         </div>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="6" class="text-center">Tidak ada data gejala yang ditemukan.</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 </div>
 
-<!-- Modal untuk menampilkan gambar yang di-zoom -->
 <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
@@ -62,10 +83,9 @@
         <h5 class="modal-title" id="imageModalLabel">Detail Gambar Gejala</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body text-center" style="background-color: #f8f9fa;"> {{-- Tambahkan background untuk visual debugging --}}
-        {{-- Penyesuaian inline style pada gambar untuk memastikan tampilan --}}
+      <div class="modal-body text-center" style="background-color: #f8f9fa;">
         <img src="" class="img-fluid" id="modalImage" alt="Gambar Gejala Detail"
-             style="max-height: 70vh; width: auto; object-fit: contain; display: block; margin: 0 auto; min-width: 100px; min-height: 100px; border: 1px solid #ddd;"> {{-- Tambahkan border dan min-dimensi untuk debugging --}}
+             style="max-height: 70vh; width: auto; object-fit: contain; display: block; margin: 0 auto; min-width: 100px; min-height: 100px; border: 1px solid #ddd;">
         <p class="text-muted mt-2" id="modalImageSource"></p>
       </div>
       <div class="modal-footer">
@@ -109,8 +129,8 @@ imageModal.addEventListener('show.bs.modal', function (event) {
     // Event listener saat modal ditutup untuk membersihkan src gambar
     imageModal.addEventListener('hidden.bs.modal', function () {
         var modalImage = imageModal.querySelector('#modalImage');
-        modalImage.src = ''; // Mengosongkan src saat modal ditutup
-        modalImage.onload = null; // Hapus handler untuk mencegah memory leaks atau pemicuan yang tidak diinginkan
+        modalImage.src = '';
+        modalImage.onload = null;
         modalImage.onerror = null;
     });
 
@@ -126,4 +146,3 @@ imageModal.addEventListener('show.bs.modal', function (event) {
 }
 </style>
 @endpush
-

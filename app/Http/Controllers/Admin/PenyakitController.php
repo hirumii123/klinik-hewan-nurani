@@ -10,11 +10,26 @@ use App\Models\Rule;
 
 class PenyakitController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $diseases = \App\Models\Disease::orderBy('id', 'asc')->get();
-        return view('admin.penyakit.index', compact('diseases'));
+        // Query untuk tabel utama, diurutkan berdasarkan kode
+        $query = Disease::with('rules.symptom')->orderBy('code', 'asc');
+
+        // Ambil semua daftar penyakit untuk dropdown filter, diurutkan berdasarkan kode
+        $allDiseases = Disease::orderBy('code', 'asc')->get(); // Perubahan di sini!
+
+        // Logika filter berdasarkan ID penyakit
+        if ($request->has('filter_disease') && $request->filter_disease != '') {
+            $diseaseId = $request->filter_disease;
+            $query->where('id', $diseaseId); // Filter berdasarkan ID penyakit yang dipilih
+        }
+
+        $diseases = $query->get(); // Jalankan query untuk mendapatkan data yang difilter
+
+        // Kirimkan kedua variabel ke view
+        return view('admin.penyakit.index', compact('diseases', 'allDiseases'));
     }
+
     public function destroy($id)
     {
         $disease = Disease::findOrFail($id);
@@ -88,6 +103,4 @@ class PenyakitController extends Controller
 
         return redirect()->route('penyakit.index')->with('success', 'Penyakit berhasil diupdate.');
     }
-
-
 }

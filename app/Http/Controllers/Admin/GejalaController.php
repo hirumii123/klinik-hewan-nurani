@@ -10,10 +10,21 @@ use Illuminate\Support\Facades\Storage;
 
 class GejalaController extends Controller
 {
-    public function index()
+    public function index(Request $request) // Tambahkan Request sebagai parameter
     {
-        $gejalas = Symptom::with('kategori')->orderBy('id', 'asc')->get();
-        return view('admin.gejala.index', compact('gejalas'));
+        $query = Symptom::with('kategori')->orderBy('id', 'asc'); // Mulai query dengan eager loading kategori
+
+        // Logika filter berdasarkan kategori
+        if ($request->has('filter_category') && $request->filter_category != '') {
+            $categoryId = $request->filter_category;
+            $query->where('kategori_id', $categoryId);
+        }
+
+        $gejalas = $query->get(); // Jalankan query
+
+        $kategoriList = SymptomCategory::orderBy('name')->get(); // Ambil semua kategori untuk dropdown filter
+
+        return view('admin.gejala.index', compact('gejalas', 'kategoriList')); // Kirimkan $kategoriList ke view
     }
 
     public function create()
@@ -28,21 +39,20 @@ class GejalaController extends Controller
             'code' => 'required|string|max:10|unique:symptoms,code',
             'name' => 'required|string|max:100',
             'kategori_id' => 'required|exists:symptom_categories,id',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi untuk gambar
-            'image_source' => 'nullable|string|max:255', // Validasi untuk sumber gambar
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image_source' => 'nullable|string|max:255',
         ]);
 
         $symptom = Symptom::create([
             'code' => $request->code,
             'name' => $request->name,
             'kategori_id' => $request->kategori_id,
-            'image_source' => $request->image_source, // Simpan sumber gambar
+            'image_source' => $request->image_source,
         ]);
 
-        // Handle image upload
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images/symptoms', 'public'); // <-- Perubahan di sini!
-            $symptom->image = Storage::disk('public')->url($imagePath); // <-- Perubahan di sini!// Simpan path gambar relatif ke storage/app/public
+            $imagePath = $request->file('image')->store('images/symptoms', 'public');
+            $symptom->image = Storage::disk('public')->url($imagePath);
             $symptom->save();
         }
 
