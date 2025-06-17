@@ -14,11 +14,10 @@ class AdminFeedbackController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\View\View
      */
-    public function index(Request $request) // Tambahkan Request sebagai parameter
+    public function index(Request $request)
     {
-        $query = Feedback::orderBy('created_at', 'desc'); // Mulai query dengan pengurutan default
+        $query = Feedback::orderBy('created_at', 'desc');
 
-        // Logika filter berdasarkan rentang tanggal
         if ($request->filled('start_date')) {
             $query->whereDate('created_at', '>=', $request->start_date);
         }
@@ -27,7 +26,7 @@ class AdminFeedbackController extends Controller
             $query->whereDate('created_at', '<=', $request->end_date);
         }
 
-        $feedbacks = $query->get(); // Jalankan query
+        $feedbacks = $query->get();
 
         return view('feedback.index', compact('feedbacks'));
     }

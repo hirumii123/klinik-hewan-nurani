@@ -10,21 +10,20 @@ use App\Models\Symptom;
 
 class RulesController extends Controller
 {
-    public function index(Request $request) // Tambahkan Request sebagai parameter
+    public function index(Request $request)
     {
-        $query = Rule::with(['disease', 'symptom'])->orderBy('id', 'asc'); // Mulai query dengan eager loading
+        $query = Rule::with(['disease', 'symptom'])->orderBy('id', 'asc');
 
-        // Logika filter berdasarkan penyakit
         if ($request->has('filter_disease') && $request->filter_disease != '') {
             $diseaseId = $request->filter_disease;
             $query->where('disease_id', $diseaseId);
         }
 
-        $rules = $query->get(); // Jalankan query
+        $rules = $query->get();
 
-        $diseases = Disease::orderBy('code')->get(); // Ambil semua penyakit untuk dropdown filter (diurutkan berdasarkan kode)
+        $diseases = Disease::orderBy('code')->get();
 
-        return view('admin.rules.index', compact('rules', 'diseases')); // Kirimkan $diseases ke view
+        return view('admin.rules.index', compact('rules', 'diseases'));
     }
 
     public function create()
@@ -36,7 +35,6 @@ class RulesController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi dulu kalau mau
         $request->validate([
             'symptom_id' => 'required|exists:symptoms,id',
             'disease_id' => 'required|exists:diseases,id',

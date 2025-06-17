@@ -3,7 +3,7 @@
 @section('title', 'Edit Penyakit')
 
 @section('content')
-<h2 class="mb-4">✏️ Edit Penyakit</h2>
+<h2 class="mb-4">✏️ Edit CF Rules</h2>
 
 <form action="{{ route('rules.update', $rule->id) }}" method="POST">
     @csrf
