@@ -10,21 +10,20 @@ use Illuminate\Support\Facades\Storage;
 
 class GejalaController extends Controller
 {
-    public function index(Request $request) // Tambahkan Request sebagai parameter
+    public function index(Request $request)
     {
-        $query = Symptom::with('kategori')->orderBy('id', 'asc'); // Mulai query dengan eager loading kategori
+        $query = Symptom::with('kategori')->orderBy('id', 'asc');
 
-        // Logika filter berdasarkan kategori
         if ($request->has('filter_category') && $request->filter_category != '') {
             $categoryId = $request->filter_category;
             $query->where('kategori_id', $categoryId);
         }
 
-        $gejalas = $query->get(); // Jalankan query
+        $gejalas = $query->get();
 
-        $kategoriList = SymptomCategory::orderBy('name')->get(); // Ambil semua kategori untuk dropdown filter
+        $kategoriList = SymptomCategory::orderBy('name')->get();
 
-        return view('admin.gejala.index', compact('gejalas', 'kategoriList')); // Kirimkan $kategoriList ke view
+        return view('admin.gejala.index', compact('gejalas', 'kategoriList'));
     }
 
     public function create()

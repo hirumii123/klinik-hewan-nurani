@@ -12,21 +12,17 @@ class PenyakitController extends Controller
 {
     public function index(Request $request)
     {
-        // Query untuk tabel utama, diurutkan berdasarkan kode
         $query = Disease::with('rules.symptom')->orderBy('code', 'asc');
 
-        // Ambil semua daftar penyakit untuk dropdown filter, diurutkan berdasarkan kode
-        $allDiseases = Disease::orderBy('code', 'asc')->get(); // Perubahan di sini!
+        $allDiseases = Disease::orderBy('code', 'asc')->get();
 
-        // Logika filter berdasarkan ID penyakit
         if ($request->has('filter_disease') && $request->filter_disease != '') {
             $diseaseId = $request->filter_disease;
-            $query->where('id', $diseaseId); // Filter berdasarkan ID penyakit yang dipilih
+            $query->where('id', $diseaseId);
         }
 
-        $diseases = $query->get(); // Jalankan query untuk mendapatkan data yang difilter
+        $diseases = $query->get();
 
-        // Kirimkan kedua variabel ke view
         return view('admin.penyakit.index', compact('diseases', 'allDiseases'));
     }
 
@@ -90,7 +86,6 @@ class PenyakitController extends Controller
         $disease = Disease::findOrFail($id);
         $disease->update($request->only(['code', 'name', 'description', 'solution']));
 
-        // Update rules
         Rule::where('disease_id', $disease->id)->delete();
 
         foreach ($request->symptoms as $symptomId) {
