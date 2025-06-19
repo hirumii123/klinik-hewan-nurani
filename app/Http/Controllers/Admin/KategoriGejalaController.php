@@ -59,10 +59,8 @@ class KategoriGejalaController extends Controller
 
     public function destroy($id)
     {
-        // Set semua symptoms yang pakai kategori ini menjadi null
         Symptom::where('kategori_id', $id)->update(['kategori_id' => null]);
 
-        // Hapus kategori dari tabel symptom_categories
         SymptomCategory::destroy($id);
 
         return redirect()->route('kategori-gejala.index')->with('success', 'Kategori berhasil dihapus.');

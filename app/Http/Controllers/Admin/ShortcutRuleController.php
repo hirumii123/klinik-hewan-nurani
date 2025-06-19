@@ -37,6 +37,7 @@ class ShortcutRuleController extends Controller
 
         return redirect()->route('shortcut-rules.index')->with('success', 'Shortcut berhasil ditambahkan.');
     }
+    
     public function edit($id)
     {
         $shortcut = ShortcutRule::findOrFail($id);
