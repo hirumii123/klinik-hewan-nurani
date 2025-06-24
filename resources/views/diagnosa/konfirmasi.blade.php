@@ -4,14 +4,15 @@
 <div class="container my-5">
     <div class="card shadow rounded-4">
         <div class="card-body p-4">
-            <h4 class="mb-4">🧠 Seberapa Yakin Kamu Mengalami Gejala Berikut?</h4>
-
+            @if (!$noSymptomsSelected)
+                <h4 class="mb-4">🧠 Seberapa Yakin Kamu Mengalami Gejala Berikut?</h4>
+            @endif
             <div id="no-symptoms-message" class="text-center py-5 rounded-3" role="alert" style="display: {{ $noSymptomsSelected ? 'block' : 'none' }};">
                 <img src="https://cdn.pixabay.com/photo/2014/04/13/20/49/cat-323262_1280.jpg" alt="Kucing Sehat" class="img-fluid rounded mb-3" style="max-width: 200px;">
                 <h5 class="fw-bold">😻 Sepertinya kucingmu sehat-sehat saja!</h5>
                 <p class="mb-4">Kalau begitu, tetap jaga kesehatannya ya! Tapi kalau ragu, kamu bisa mulai diagnosa ulang kapan saja.</p>
                 <a href="{{ route('diagnosa.reset') }}" id="new-diagnosis-btn-message" class="btn btn-primary" style="display: none;">
-                    Mulai Diagnosa Baru
+                    <i class="bi bi-arrow-repeat"></i> Mulai Diagnosa Baru
                 </a>
                 {{-- Tombol baru untuk feedback --}}
                 <a href="{{ route('feedback.create') }}" class="btn btn-outline-primary">

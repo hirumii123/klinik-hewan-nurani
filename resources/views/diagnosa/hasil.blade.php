@@ -4,12 +4,12 @@
 <div class="container my-5">
     <div class="card shadow rounded-4">
         <div class="card-body p-5">
-            <h2 class="mb-4 text-primary">🧾 Hasil Diagnosa Kucing</h2>
+            <h2 class="mb-4 text-primary">Hasil Diagnosa Kucing</h2>
             <p class="text-muted mb-4"><small>Hasil diagnosa ini bersifat indikatif dan tidak sepenuhnya akurat. Selalu konsultasikan dengan dokter hewan profesional untuk diagnosa dan penanganan lebih lanjut.</small></p>
 
             {{-- Gejala yang Dipilih --}}
             <div class="mb-4">
-                <h5>🐾 Gejala yang Dipilih:</h5>
+                <h5>Gejala yang Dipilih:</h5>
                 <ul class="list-group list-group-flush">
                     @foreach ($cfUserInputs as $code => $cf)
                         <li class="list-group-item">
@@ -73,7 +73,7 @@
 
                         <div class="collapse" id="collapseDetail{{ $index }}">
                             <div class="card-body">
-                                <h6 class="mb-3">🔍 Rincian Gejala & Perhitungan CF:</h6>
+                                <h6 class="mb-3">Rincian Gejala & Perhitungan CF:</h6>
                                 <div class="table-responsive">
                                     <table class="table table-sm table-bordered table-striped">
                                         <thead class="table-light">
@@ -82,7 +82,7 @@
                                                 <th>Nama Gejala</th>
                                                 <th>CF Expert</th>
                                                 <th>CF User</th>
-                                                <th>CF Gejala (×)</th>
+                                                <th>CF Gejala (CFuser x CFexpert)</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -99,13 +99,13 @@
                                     </table>
                                 </div>
 
-                                <h6 class="mb-3 mt-4">📐 Step-by-step Kombinasi CF:</h6>
+                                <h6 class="mb-3 mt-4">Step-by-step Kombinasi CF:</h6>
                                 <div class="bg-light p-3 rounded">
                                     <pre class="m-0">{{ implode("\n", $result['steps']) }}</pre>
                                 </div>
 
                                 <div class="mt-4">
-                                    <h6 class="text-primary">🩺 Rekomendasi Solusi:</h6>
+                                    <h6 class="text-primary">Rekomendasi Solusi:</h6>
                                     @if (!empty($result['disease']->solution))
                                         <div class="p-3 bg-light rounded">
                                             {!! nl2br(e($result['disease']->solution)) !!}
@@ -125,18 +125,25 @@
             @endif
             <hr class="border-1">
 
-            <div class="d-flex gap-2 mt-4">
-                <a href="{{ route('diagnosa.reset') }}" class="btn btn-white text-primary border-1 border-primary">
-                    <i class="bi bi-arrow-repeat"></i> Mulai Diagnosa Baru
+            {{-- Perubahan di sini: Menggunakan justify-content-between --}}
+            <div class="d-flex justify-content-between align-items-center mt-4">
+                <div class="d-flex gap-2"> {{-- Grup tombol kiri --}}
+                    <a href="{{ route('diagnosa.reset') }}" class="btn btn-primary text-white border-1">
+                        <i class="bi bi-arrow-repeat"></i> Mulai Diagnosa Baru
+                    </a>
+                    @if(count($results) > 0 && isset($results[0]['cf']))
+                    <form action="{{ route('diagnosa.export') }}" method="POST" target="_blank">
+                        @csrf
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-file-earmark-pdf"></i> Export PDF
+                        </button>
+                    </form>
+                    @endif
+                </div>
+                {{-- Tombol "Berikan Saran" diletakkan sendiri untuk didorong ke kanan --}}
+                <a href="{{ route('feedback.create') }}" class="btn btn-outline-primary">
+                    <i class="bi bi-lightbulb"></i> Ada Saran Untuk Kami?
                 </a>
-                @if(count($results) > 0 && isset($results[0]['cf']))
-                <form action="{{ route('diagnosa.export') }}" method="POST" target="_blank">
-                    @csrf
-                    <button type="submit" class="btn btn-success">
-                        <i class="bi bi-file-earmark-pdf"></i> Export PDF
-                    </button>
-                </form>
-                @endif
             </div>
         </div>
     </div>

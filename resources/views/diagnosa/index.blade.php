@@ -26,7 +26,8 @@
                                     <label class="card h-100 shadow-sm symptom-card p-3" for="{{ $symptom->code }}" style="cursor: pointer;">
                                         <div class="form-check d-flex align-items-center">
                                             <input class="form-check-input d-none" type="checkbox" name="symptoms[]" value="{{ $symptom->code }}" id="{{ $symptom->code }}">
-                                            <span class="fw-semibold flex-grow-1">{{ $symptom->code }} - {{ $symptom->name }}</span>
+                                            <!-- <span class="fw-semibold flex-grow-1">{{ $symptom->code }} - {{ $symptom->name }}</span> -->
+                                            <span class="fw-semibold flex-grow-1">{{ $symptom->name }}</span>
                                         </div>
 
                                         {{-- Bagian gambar dan sumber yang akan tampil saat hover --}}
