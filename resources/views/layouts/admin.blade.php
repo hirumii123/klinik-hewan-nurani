@@ -18,7 +18,10 @@
     <div class="d-flex">
         {{-- Sidebar --}}
         <div class="sidebar">
-            <h5 class="h5">Admin Nurani Pet Care</h5>
+            <h5 class="h5">
+                <i class="fas fa-cat sidebar-logo-icon"></i>
+                <span class="sidebar-logo-text">Admin Panel Nurani</span>
+            </h5>
             <ul class="nav flex-column">
                 <li class="nav-item">
                     <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->is('admin') ? 'active' : '' }}">

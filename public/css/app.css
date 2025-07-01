@@ -170,6 +170,19 @@ body {
     object-position: center;
 }
 
+/* Styling untuk btn-outline-warning, bisa ditambahkan di public/css/app.css */
+.btn-outline-warning {
+    color: #EB6B22 !important; /* Warna teks oranye */
+    border-color: #EB6B22 !important; /* Warna border oranye */
+}
+
+/* Efek hover yang sudah ada di beberapa view, pastikan konsisten di public/css/app.css */
+.btn-outline-warning:hover {
+    background-color: #EB6B22 !important;
+    color: white !important;
+    border-color: #EB6B22 !important;
+}
+
 .btn-primary {
     background-color: var(--bs-primary) !important;
     border-color: var(--bs-primary) !important;
@@ -208,13 +221,13 @@ body {
 }
 
 .btn-outline-primary {
-    color: #133E87 !important;
-    border-color: #133E87 !important;
+    color: #133E87 !important; /* Warna teks primer */
+    border-color: #133E87 !important; /* Warna border primer */
 }
 
 .btn-outline-primary:hover {
-    background-color: #133E87 !important;
-    color: white !important;
+    background-color: rgba(19, 62, 135, 0.1) !important; /* Biru dengan opasitas rendah (fill transparan) */
+    color: #133E87 !important;
     border-color: #133E87 !important;
 }
 
@@ -228,6 +241,7 @@ body {
 .btn-outline-primary.focus {
     box-shadow: 0 0 0 0.25rem rgba(19, 62, 135, 0.5) !important;
 }
+
 
 section {
     margin-bottom: 80px;

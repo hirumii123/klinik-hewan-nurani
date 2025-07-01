@@ -84,18 +84,38 @@ class PenyakitController extends Controller
         ]);
 
         $disease = Disease::findOrFail($id);
+
+        // Update detail dasar penyakit
         $disease->update($request->only(['code', 'name', 'description', 'solution']));
 
-        Rule::where('disease_id', $disease->id)->delete();
+        // Dapatkan ID gejala yang baru dipilih dari request
+        $newSymptomIds = $request->symptoms;
 
-        foreach ($request->symptoms as $symptomId) {
+        // Dapatkan aturan (rules) gejala yang saat ini terkait dengan penyakit
+        $currentRules = Rule::where('disease_id', $disease->id)->get();
+        $currentSymptomIds = $currentRules->pluck('symptom_id')->toArray();
+
+        // 1. Hapus aturan untuk gejala yang TIDAK lagi dipilih
+        $symptomsToDetach = array_diff($currentSymptomIds, $newSymptomIds);
+        if (!empty($symptomsToDetach)) {
+            Rule::where('disease_id', $disease->id)
+                ->whereIn('symptom_id', $symptomsToDetach)
+                ->delete();
+        }
+
+        // 2. Tambahkan aturan untuk gejala yang baru dipilih
+        $symptomsToAttach = array_diff($newSymptomIds, $currentSymptomIds);
+        foreach ($symptomsToAttach as $symptomId) {
             Rule::create([
                 'disease_id' => $disease->id,
                 'symptom_id' => $symptomId,
-                'cf_value' => 0
+                'cf_value' => 0 // Nilai CF default untuk gejala yang baru ditambahkan
             ]);
         }
 
-        return redirect()->route('penyakit.index')->with('success', 'Penyakit berhasil diupdate.');
+        // Catatan: Nilai CF untuk gejala yang sudah ada (yang ada di $currentSymptomIds dan $newSymptomIds)
+        // secara implisit dipertahankan karena aturan mereka tidak dihapus atau dimodifikasi di sini.
+
+        return redirect()->route('penyakit.index')->with('success',     'Penyakit berhasil diupdate.');
     }
 }

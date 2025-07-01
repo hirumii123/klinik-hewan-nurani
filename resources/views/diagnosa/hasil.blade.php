@@ -128,7 +128,7 @@
             {{-- Perubahan di sini: Menggunakan justify-content-between --}}
             <div class="d-flex justify-content-between align-items-center mt-4">
                 <div class="d-flex gap-2"> {{-- Grup tombol kiri --}}
-                    <a href="{{ route('diagnosa.reset') }}" class="btn btn-primary text-white border-1">
+                    <a href="{{ route('diagnosa.reset') }}" id="new-diagnosis-btn" class="btn btn-outline-primary">
                         <i class="bi bi-arrow-repeat"></i> Mulai Diagnosa Baru
                     </a>
                     @if(count($results) > 0 && isset($results[0]['cf']))
@@ -141,7 +141,7 @@
                     @endif
                 </div>
                 {{-- Tombol "Berikan Saran" diletakkan sendiri untuk didorong ke kanan --}}
-                <a href="{{ route('feedback.create') }}" class="btn btn-outline-primary">
+                <a href="{{ route('feedback.create') }}" class="btn btn-outline-dark">
                     <i class="bi bi-lightbulb"></i> Ada Saran Untuk Kami?
                 </a>
             </div>

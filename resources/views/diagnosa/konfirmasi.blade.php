@@ -15,7 +15,7 @@
                     <i class="bi bi-arrow-repeat"></i> Mulai Diagnosa Baru
                 </a>
                 {{-- Tombol baru untuk feedback --}}
-                <a href="{{ route('feedback.create') }}" class="btn btn-outline-primary">
+                <a href="{{ route('feedback.create') }}" class="btn btn-outline-dark">
                     <i class="bi bi-lightbulb   "></i>
                     Ada saran untuk kami?
                 </a>
@@ -48,8 +48,8 @@
                         Kembali
                     </a>
                     <div class="d-flex gap-2">
-                        <a href="{{ route('diagnosa.reset') }}" id="new-diagnosis-btn-in-form" class="btn btn-outline-secondary" style="display: none;">
-                            Mulai Diagnosa Baru
+                        <a href="{{ route('diagnosa.reset') }}" id="new-diagnosis-btn-in-form" class="btn btn-outline-primary" style="display: none;">
+                            <i class="bi bi-arrow-repeat"></i> Mulai Diagnosa Baru
                         </a>
                         <button type="submit" id="submitResultBtn" class="btn btn-primary">
                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>

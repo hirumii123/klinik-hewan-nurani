@@ -5,7 +5,7 @@
     <div class="card shadow rounded-4">
         <div class="card-body p-5">
             <h2 class="mb-4 text-primary text-center">🩺 Diagnosa Penyakit Kucing</h2>
-            <p class="text-muted text-center mb-4">Silakan pilih gejala yang dialami kucing Anda berdasarkan area tubuh kucing.</p>
+            <p class="text-muted text-center mb-4">Silakan pilih gejala yang dialami kucing Anda berdasarkan area tubuh kucing. <br>Jika tidak ada gejala yang sesuai, silakan klik tombol Selanjutnya.</p>
 
             <!-- Progress Bar -->
             <div class="progress mb-4" style="height: 20px;">

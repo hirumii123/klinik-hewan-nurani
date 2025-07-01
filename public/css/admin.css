@@ -78,12 +78,36 @@ body {
     white-space: nowrap;
     overflow: hidden;
     transition: opacity 0.3s ease;
+    display: flex; /* Make it a flex container */
+    align-items: center; /* Vertically align items */
+    justify-content: center; /* Horizontally center items */
+    gap: 10px; /* Space between icon and text */
 }
 
 .sidebar.collapsed .h5 {
+    opacity: 1; /* Keep icon visible */
+    height: auto;
+    margin-bottom: 30px;
+    justify-content: center; /* Center content when collapsed */
+}
+
+.sidebar.collapsed .sidebar-logo-icon {
+    font-size: 30px; /* Smaller icon when collapsed */
+    margin: 0; /* Remove margin to align center */
+}
+
+.sidebar-logo-text {
+    transition: opacity 0.3s ease, width 0.3s ease;
+    overflow: hidden;
+    display: inline-block; /* Ensure text takes up space */
+    vertical-align: middle; /* Align with icon */
+}
+
+.sidebar.collapsed .sidebar-logo-text {
     opacity: 0;
-    height: 0;
-    margin-bottom: 0;
+    width: 0;
+    margin-left: -10px; /* Hide text completely */
+    white-space: nowrap;
 }
 
 .sidebar a {
