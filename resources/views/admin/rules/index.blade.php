@@ -18,9 +18,20 @@
                     </option>
                 @endforeach
             </select>
+        </div>
+        {{-- Tambahkan filter berdasarkan gejala --}}
+        <div class="input-group">
+            <select name="filter_symptom" class="form-select">
+                <option value="">Filter Berdasarkan Gejala</option>
+                @foreach ($symptoms as $symptom)
+                    <option value="{{ $symptom->id }}" {{ request('filter_symptom') == $symptom->id ? 'selected' : '' }}>
+                        {{ $symptom->code }} - {{ $symptom->name }}
+                    </option>
+                @endforeach
+            </select>
             <button class="btn btn-outline-secondary" type="submit">Filter</button>
         </div>
-        @if(request('filter_disease'))
+        @if(request('filter_disease') || request('filter_symptom'))
             <a href="{{ route('rules.index') }}" class="btn btn-danger">Reset</a>
         @endif
     </form>

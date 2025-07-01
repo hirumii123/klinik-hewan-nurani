@@ -7,7 +7,6 @@
             <h2 class="mb-4 text-primary text-center">🩺 Diagnosa Penyakit Kucing</h2>
             <p class="text-muted text-center mb-4">Silakan pilih gejala yang dialami kucing Anda berdasarkan area tubuh kucing. <br>Jika tidak ada gejala yang sesuai, silakan klik tombol Selanjutnya.</p>
 
-            <!-- Progress Bar -->
             <div class="progress mb-4" style="height: 20px;">
                 <div id="progress-bar" class="progress-bar bg-custom-biru" role="progressbar" style="width: 5%;" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
@@ -26,7 +25,6 @@
                                     <label class="card h-100 shadow-sm symptom-card p-3" for="{{ $symptom->code }}" style="cursor: pointer;">
                                         <div class="form-check d-flex align-items-center">
                                             <input class="form-check-input d-none" type="checkbox" name="symptoms[]" value="{{ $symptom->code }}" id="{{ $symptom->code }}">
-                                            <!-- <span class="fw-semibold flex-grow-1">{{ $symptom->code }} - {{ $symptom->name }}</span> -->
                                             <span class="fw-semibold flex-grow-1">{{ $symptom->name }}</span>
                                         </div>
 
@@ -84,10 +82,11 @@
             submitBtn.classList.add('d-none');
         }
 
-        const progress = Math.round((currentStep / totalSteps) * 100);
-        progressBar.style.width = progress + '%';
-        progressBar.setAttribute('aria-valuenow', progress);
-        progressBar.innerText = progress + '%';
+        const progressPercentage = Math.round((currentStep / totalSteps) * 100);
+        progressBar.style.width = progressPercentage + '%';
+        progressBar.setAttribute('aria-valuenow', progressPercentage);
+        // Mengubah teks progress bar dari persentase menjadi "current_step/total_steps"
+        progressBar.innerText = currentStep + '/' + totalSteps;
     }
 
     nextBtn.addEventListener('click', () => {

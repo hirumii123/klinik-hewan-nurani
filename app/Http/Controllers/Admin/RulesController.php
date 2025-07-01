@@ -12,18 +12,30 @@ class RulesController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Rule::with(['disease', 'symptom'])->orderBy('id', 'asc');
+        // Join with diseases and symptoms tables to order by their codes
+        $query = Rule::with(['disease', 'symptom'])
+                     ->join('diseases', 'rules.disease_id', '=', 'diseases.id')
+                     ->join('symptoms', 'rules.symptom_id', '=', 'symptoms.id') // Added join for symptoms
+                     ->select('rules.*') // Select all columns from rules table to avoid conflicts
+                     ->orderBy('diseases.code', 'asc')
+                     ->orderBy('symptoms.code', 'asc'); // Added secondary order by symptoms.code
 
         if ($request->has('filter_disease') && $request->filter_disease != '') {
             $diseaseId = $request->filter_disease;
-            $query->where('disease_id', $diseaseId);
+            $query->where('rules.disease_id', $diseaseId);
+        }
+
+        if ($request->has('filter_symptom') && $request->filter_symptom != '') {
+            $symptomId = $request->filter_symptom;
+            $query->where('rules.symptom_id', $symptomId);
         }
 
         $rules = $query->get();
 
         $diseases = Disease::orderBy('code')->get();
+        $symptoms = Symptom::orderBy('code')->get();
 
-        return view('admin.rules.index', compact('rules', 'diseases'));
+        return view('admin.rules.index', compact('rules', 'diseases', 'symptoms'));
     }
 
     public function create()

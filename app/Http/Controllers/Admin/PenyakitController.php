@@ -12,18 +12,36 @@ class PenyakitController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Disease::with('rules.symptom')->orderBy('code', 'asc');
+        // Eager load rules and symptoms, and order rules by symptom code
+        $query = Disease::with(['rules' => function ($query) {
+            $query->join('symptoms', 'rules.symptom_id', '=', 'symptoms.id')
+                  ->orderBy('symptoms.code', 'asc')
+                  ->select('rules.*'); // Select all columns from rules table to avoid conflicts
+        }])->orderBy('code', 'asc');
 
         $allDiseases = Disease::orderBy('code', 'asc')->get();
+        $allSymptoms = Symptom::orderBy('code', 'asc')->get();
 
         if ($request->has('filter_disease') && $request->filter_disease != '') {
             $diseaseId = $request->filter_disease;
             $query->where('id', $diseaseId);
         }
 
+        if ($request->has('filter_symptom') && $request->filter_symptom != '') {
+            $symptomId = $request->filter_symptom;
+            $query->whereHas('rules', function ($q) use ($symptomId) {
+                // When using whereHas with a nested join in eager load,
+                // the inner query of whereHas also needs to join to symptom
+                // if filtering by symptom code on the main query directly.
+                // However, since we are already joining 'symptoms' in the main 'rules' eager load,
+                // we just need to filter by symptom_id on the rules table in the whereHas.
+                $q->where('symptom_id', $symptomId);
+            });
+        }
+
         $diseases = $query->get();
 
-        return view('admin.penyakit.index', compact('diseases', 'allDiseases'));
+        return view('admin.penyakit.index', compact('diseases', 'allDiseases', 'allSymptoms'));
     }
 
     public function destroy($id)
