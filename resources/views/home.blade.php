@@ -100,10 +100,10 @@
 
             <div class="col">
                 <div class="card h-100">
-                    <img src="{{ asset('images/coffee-shop.png') }}" class="card-img-top" alt="Coffee Shop">
+                    <img src="{{ asset('images/coffee-shop.png') }}" class="card-img-top" alt="Operasi">
                     <div class="card-body">
-                        <h5 class="card-title">Coffee Shop</h5>
-                        <p class="card-text">Tempat bersantai dengan suasana alam dan hidangan nikmat sambil menunggu.</p>
+                        <h5 class="card-title">Operasi</h5>
+                        <p class="card-text">Klinik melayani operasi dengan perjanjian.</p>
                     </div>
                 </div>
             </div>
@@ -152,31 +152,31 @@
                         <tbody>
                             <tr>
                                 <td>Senin</td>
-                                <td>09.00 - 23.00 WIB</td>
+                                <td>09.00 - 21.00 WIB</td>
                             </tr>
                             <tr>
                                 <td>Selasa</td>
-                                <td>09.00 - 23.00 WIB</td>
+                                <td>09.00 - 21.00 WIB</td>
                             </tr>
                             <tr>
                                 <td>Rabu</td>
-                                <td>09.00 - 23.00 WIB</td>
+                                <td>09.00 - 21.00 WIB</td>
                             </tr>
                             <tr>
                                 <td>Kamis</td>
-                                <td>09.00 - 23.00 WIB</td>
+                                <td>09.00 - 21.00 WIB</td>
                             </tr>
                             <tr>
                                 <td>Jumat</td>
-                                <td>09.00 - 23.00 WIB</td>
+                                <td>09.00 - 21.00 WIB</td>
                             </tr>
                             <tr>
                                 <td>Sabtu</td>
-                                <td>09.00 - 23.00 WIB</td>
+                                <td>09.00 - 21.00 WIB</td>
                             </tr>
                             <tr>
                                 <td>Minggu</td>
-                                <td>09.00 - 23.00 WIB</td>
+                                <td>09.00 - 21.00 WIB</td>
                             </tr>
                         </tbody>
                     </table>

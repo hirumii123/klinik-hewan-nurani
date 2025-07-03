@@ -127,6 +127,7 @@ class DiagnosaController extends Controller
         }
 
         usort($results, fn($a, $b) => $b['cf'] <=> $a['cf']);
+        $results = array_slice($results, 0, 3);
 
         session()->forget(['all_diagnosis_results', 'cf_user_inputs']);
         session([

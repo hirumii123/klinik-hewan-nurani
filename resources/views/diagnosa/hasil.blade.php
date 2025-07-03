@@ -45,9 +45,9 @@
                                 <td><strong>{{ $result['percentage'] }}%</strong></td>
                                 <td>
                                     @if($result['cf'] >= 0.8)
-                                        <span class="badge bg-success">Sangat Yakin</span>
+                                        <span class="badge bg-success">Yakin</span>
                                     @elseif($result['cf'] >= 0.6)
-                                        <span class="badge bg-primary">Yakin</span>
+                                        <span class="badge bg-primary">Sedang</span>
                                     @elseif($result['cf'] >= 0.4)
                                         <span class="badge bg-warning text-dark">Ragu-ragu</span>
                                     @else
