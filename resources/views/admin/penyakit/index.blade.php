@@ -8,9 +8,10 @@
 <div class="d-flex justify-content-between align-items-center mb-3">
     <a href="{{ route('penyakit.create') }}" class="btn btn-primary">+ Tambah Penyakit</a>
 
-    <form action="{{ route('penyakit.index') }}" method="GET" class="d-flex gap-2">
-        <div class="input-group">
-            <select name="filter_disease" class="form-select">
+    {{-- Adjust form layout for smaller filters --}}
+    <form action="{{ route('penyakit.index') }}" method="GET" class="d-flex gap-2 align-items-center flex-wrap">
+        <div class="input-group" style="max-width: 250px;"> {{-- Limit overall input group width --}}
+            <select name="filter_disease" class="form-select form-select-sm"> {{-- Use form-select-sm for smaller height --}}
                 <option value="">Filter Berdasarkan Nama Penyakit</option>
                 @foreach ($allDiseases as $disease)
                     <option value="{{ $disease->id }}" {{ request('filter_disease') == $disease->id ? 'selected' : '' }}>
@@ -19,8 +20,8 @@
                 @endforeach
             </select>
         </div>
-        <div class="input-group">
-            <select name="filter_symptom" class="form-select">
+        <div class="input-group" style="max-width: 250px;"> {{-- Limit overall input group width --}}
+            <select name="filter_symptom" class="form-select form-select-sm"> {{-- Use form-select-sm for smaller height --}}
                 <option value="">Filter Berdasarkan Gejala</option>
                 @foreach ($allSymptoms as $symptom)
                     <option value="{{ $symptom->id }}" {{ request('filter_symptom') == $symptom->id ? 'selected' : '' }}>
@@ -28,10 +29,10 @@
                     </option>
                 @endforeach
             </select>
-            <button class="btn btn-outline-secondary" type="submit">Filter</button>
+            <button class="btn btn-outline-secondary btn-sm" type="submit">Filter</button> {{-- Use btn-sm for smaller button --}}
         </div>
         @if(request('filter_disease') || request('filter_symptom'))
-            <a href="{{ route('penyakit.index') }}" class="btn btn-danger">Reset</a>
+            <a href="{{ route('penyakit.index') }}" class="btn btn-danger btn-sm">Reset</a> {{-- Use btn-sm for smaller button --}}
         @endif
     </form>
 </div>

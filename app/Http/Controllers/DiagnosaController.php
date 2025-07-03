@@ -26,14 +26,8 @@ class DiagnosaController extends Controller
     {
         $selectedCodes = $request->input('symptoms', []);
 
-        // Menghapus validasi minimal satu gejala
-        // if (empty($selectedCodes)) {
-        //     return redirect()->route('diagnosa.index')
-        //         ->with('error', 'Silakan pilih minimal satu gejala untuk melakukan diagnosa.');
-        // }
-
         $selectedSymptoms = Symptom::whereIn('code', $selectedCodes)->get();
-        $noSymptomsSelected = $selectedSymptoms->isEmpty(); // Menentukan apakah tidak ada gejala yang dipilih
+        $noSymptomsSelected = $selectedSymptoms->isEmpty();
 
         return view('diagnosa.konfirmasi', compact('selectedSymptoms', 'noSymptomsSelected'));
     }
@@ -42,7 +36,6 @@ class DiagnosaController extends Controller
     {
         $cfUserInputs = $request->input('cf_user', []);
 
-        // Menangani jika tidak ada gejala yang dipilih atau semua dihapus di halaman konfirmasi
         if (empty($cfUserInputs)) {
             $results = [[
                 'disease' => (object)['code' => 'N/A', 'name' => 'Kucing Sehat', 'solution' => 'Tidak ada penyakit terdeteksi berdasarkan gejala yang dipilih. Terus pantau kesehatan kucing Anda.'],
@@ -52,9 +45,9 @@ class DiagnosaController extends Controller
                 'steps' => ['Tidak ada gejala yang dipilih.']
             ]];
 
-            session()->forget(['hasil_diagnosa', 'cf_user_inputs']);
+            session()->forget(['all_diagnosis_results', 'cf_user_inputs']);
             session([
-                'hasil_diagnosa' => $results[0],
+                'all_diagnosis_results' => $results, // Store all results
                 'cf_user_inputs' => $cfUserInputs
             ]);
 
@@ -76,9 +69,9 @@ class DiagnosaController extends Controller
                 'steps' => ['🧠 Dideteksi langsung melalui struktur pohon (Forward Chaining).']
             ];
 
-            session()->forget(['hasil_diagnosa', 'cf_user_inputs']);
+            session()->forget(['all_diagnosis_results', 'cf_user_inputs']);
             session([
-                'hasil_diagnosa' => $shortcutResult,
+                'all_diagnosis_results' => [$shortcutResult], // Store as an array for consistency
                 'cf_user_inputs' => $cfUserInputs
             ]);
 
@@ -135,9 +128,9 @@ class DiagnosaController extends Controller
 
         usort($results, fn($a, $b) => $b['cf'] <=> $a['cf']);
 
-        session()->forget(['hasil_diagnosa', 'cf_user_inputs']);
+        session()->forget(['all_diagnosis_results', 'cf_user_inputs']);
         session([
-            'hasil_diagnosa' => $results[0],
+            'all_diagnosis_results' => $results, // Store all results
             'cf_user_inputs' => $cfUserInputs
         ]);
 
@@ -152,43 +145,40 @@ class DiagnosaController extends Controller
     {
         $shortcutRules = \App\Models\ShortcutRule::all();
 
-    foreach ($shortcutRules as $rule) {
-        $codes = $rule->symptom_codes;
-        $penyakitCode = $rule->disease_code;
+        foreach ($shortcutRules as $rule) {
+            $codes = $rule->symptom_codes;
+            $penyakitCode = $rule->disease_code;
 
-        $semuaTerpenuhi = true;
-        foreach ($codes as $code) {
-            if (!isset($cfUserInputs[$code]) || $cfUserInputs[$code] < 0.8) {
-                $semuaTerpenuhi = false;
-                break;
+            $semuaTerpenuhi = true;
+            foreach ($codes as $code) {
+                if (!isset($cfUserInputs[$code]) || $cfUserInputs[$code] < 0.8) {
+                    $semuaTerpenuhi = false;
+                    break;
+                }
             }
-        }
 
-        if ($semuaTerpenuhi) return $penyakitCode;
-    }
+            if ($semuaTerpenuhi) return $penyakitCode;
+        }
         return null;
     }
 
     public function exportPdf(Request $request)
     {
-        $result = session('hasil_diagnosa');
+        $allResults = session('all_diagnosis_results'); // Retrieve all results
         $cfUserInputs = session('cf_user_inputs');
 
-        if (!$result || !isset($result['disease'])) {
-            return abort(400, 'Data diagnosa tidak valid.');
+        if (!$allResults || empty($allResults)) {
+            return abort(400, 'Data diagnosa tidak valid atau tidak ditemukan.');
         }
 
-        $diseases = isset($result['diseases']) ? $result['diseases'] : [isset($result['disease']) ? $result['disease'] : null];
-
+        // Pass all results to the PDF view
         $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('diagnosa.pdf', [
-            'result' => (object) $result,
+            'results' => $allResults, // Pass all results
             'cfUserInputs' => $cfUserInputs,
-            'diseases' => $diseases,
         ])->setPaper('a4', 'portrait');
 
-        session()->forget(['hasil_diagnosa', 'cf_user_inputs']);
+        session()->forget(['all_diagnosis_results', 'cf_user_inputs']);
 
         return $pdf->download('hasil_diagnosa_kucing.pdf');
     }
-
 }

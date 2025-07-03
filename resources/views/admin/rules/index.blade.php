@@ -8,9 +8,9 @@
 <div class="d-flex justify-content-between align-items-center mb-3">
     <a href="{{ route('rules.create') }}" class="btn btn-primary">+ Tambah CF Rules</a>
 
-    <form action="{{ route('rules.index') }}" method="GET" class="d-flex gap-2">
-        <div class="input-group">
-            <select name="filter_disease" class="form-select">
+    <form action="{{ route('rules.index') }}" method="GET" class="d-flex gap-2 align-items-center flex-wrap">
+        <div class="input-group" style="max-width: 250px;"> {{-- Added max-width for smaller filter input --}}
+            <select name="filter_disease" class="form-select form-select-sm"> {{-- Added form-select-sm --}}
                 <option value="">Filter Berdasarkan Penyakit</option>
                 @foreach ($diseases as $disease)
                     <option value="{{ $disease->id }}" {{ request('filter_disease') == $disease->id ? 'selected' : '' }}>
@@ -20,8 +20,8 @@
             </select>
         </div>
         {{-- Tambahkan filter berdasarkan gejala --}}
-        <div class="input-group">
-            <select name="filter_symptom" class="form-select">
+        <div class="input-group" style="max-width: 250px;"> {{-- Added max-width for smaller filter input --}}
+            <select name="filter_symptom" class="form-select form-select-sm"> {{-- Added form-select-sm --}}
                 <option value="">Filter Berdasarkan Gejala</option>
                 @foreach ($symptoms as $symptom)
                     <option value="{{ $symptom->id }}" {{ request('filter_symptom') == $symptom->id ? 'selected' : '' }}>
@@ -29,10 +29,10 @@
                     </option>
                 @endforeach
             </select>
-            <button class="btn btn-outline-secondary" type="submit">Filter</button>
+            <button class="btn btn-outline-secondary btn-sm" type="submit">Filter</button> {{-- Added btn-sm --}}
         </div>
         @if(request('filter_disease') || request('filter_symptom'))
-            <a href="{{ route('rules.index') }}" class="btn btn-danger">Reset</a>
+            <a href="{{ route('rules.index') }}" class="btn btn-danger btn-sm">Reset</a> {{-- Added btn-sm --}}
         @endif
     </form>
 </div>
