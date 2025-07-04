@@ -202,9 +202,9 @@
                                 <td><strong>{{ $item['percentage'] ?? '0' }}%</strong></td>
                                 <td>
                                     @if(($item['cf'] ?? 0) >= 0.8)
-                                        <span class="badge badge-success">Sangat Yakin</span>
+                                        <span class="badge badge-success">Yakin</span>
                                     @elseif(($item['cf'] ?? 0) >= 0.6)
-                                        <span class="badge badge-primary">Yakin</span>
+                                        <span class="badge badge-primary">Sedang</span>
                                     @elseif(($item['cf'] ?? 0) >= 0.4)
                                         <span class="badge badge-warning">Ragu-ragu</span>
                                     @else

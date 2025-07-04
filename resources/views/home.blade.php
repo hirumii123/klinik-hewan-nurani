@@ -100,7 +100,7 @@
 
             <div class="col">
                 <div class="card h-100">
-                    <img src="{{ asset('images/coffee-shop.png') }}" class="card-img-top" alt="Operasi">
+                    <img src="{{ asset('images/operasi.png') }}" class="card-img-top" alt="Operasi">
                     <div class="card-body">
                         <h5 class="card-title">Operasi</h5>
                         <p class="card-text">Klinik melayani operasi dengan perjanjian.</p>
