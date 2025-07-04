@@ -103,7 +103,7 @@
                     <img src="{{ asset('images/operasi.png') }}" class="card-img-top" alt="Operasi">
                     <div class="card-body">
                         <h5 class="card-title">Operasi</h5>
-                        <p class="card-text">Klinik melayani operasi dengan perjanjian.</p>
+                        <p class="card-text">Penanganan bedah profesional oleh tim dokter hewan berpengalaman untuk kesehatan optimal hewan kesayangan Anda.</p>
                     </div>
                 </div>
             </div>
