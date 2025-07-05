@@ -32,8 +32,7 @@
             <tr>
                 <th style="width: 5%">Kode</th>
                 <th>Nama Gejala</th>
-                <th>Kategori Gejala</th>
-                <th style="width: 15%">Gambar</th>
+                <th style="width: 15%">Kategori Gejala</th> <th style="width: 15%">Gambar</th>
                 <th style="width: 15%">Sumber Gambar</th>
                 <th style="width: 20%">Aksi</th>
             </tr>

@@ -8,10 +8,9 @@
 <div class="d-flex justify-content-between align-items-center mb-3">
     <a href="{{ route('penyakit.create') }}" class="btn btn-primary">+ Tambah Penyakit</a>
 
-    {{-- Adjust form layout for smaller filters --}}
     <form action="{{ route('penyakit.index') }}" method="GET" class="d-flex gap-2 align-items-center flex-wrap">
-        <div class="input-group" style="max-width: 250px;"> {{-- Limit overall input group width --}}
-            <select name="filter_disease" class="form-select form-select-sm"> {{-- Use form-select-sm for smaller height --}}
+        <div class="input-group" style="max-width: 250px;">
+            <select name="filter_disease" class="form-select form-select-sm">
                 <option value="">Filter Berdasarkan Nama Penyakit</option>
                 @foreach ($allDiseases as $disease)
                     <option value="{{ $disease->id }}" {{ request('filter_disease') == $disease->id ? 'selected' : '' }}>
@@ -20,8 +19,8 @@
                 @endforeach
             </select>
         </div>
-        <div class="input-group" style="max-width: 250px;"> {{-- Limit overall input group width --}}
-            <select name="filter_symptom" class="form-select form-select-sm"> {{-- Use form-select-sm for smaller height --}}
+        <div class="input-group" style="max-width: 250px;">
+            <select name="filter_symptom" class="form-select form-select-sm">
                 <option value="">Filter Berdasarkan Gejala</option>
                 @foreach ($allSymptoms as $symptom)
                     <option value="{{ $symptom->id }}" {{ request('filter_symptom') == $symptom->id ? 'selected' : '' }}>
@@ -29,10 +28,10 @@
                     </option>
                 @endforeach
             </select>
-            <button class="btn btn-outline-secondary btn-sm" type="submit">Filter</button> {{-- Use btn-sm for smaller button --}}
+            <button class="btn btn-outline-secondary btn-sm" type="submit">Filter</button>
         </div>
         @if(request('filter_disease') || request('filter_symptom'))
-            <a href="{{ route('penyakit.index') }}" class="btn btn-danger btn-sm">Reset</a> {{-- Use btn-sm for smaller button --}}
+            <a href="{{ route('penyakit.index') }}" class="btn btn-danger btn-sm">Reset</a>
         @endif
     </form>
 </div>
@@ -62,7 +61,18 @@
                             @endforeach
                         </ul>
                     </td>
-                    <td style="max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ $penyakit->solution }}</td>
+                    {{-- Modified Solution cell for hover effect --}}
+                    <td style="max-width: 300px;"> {{-- max-width remains on td --}}
+                        <span class="solution-snippet"
+                              data-bs-toggle="popover"
+                              data-bs-trigger="hover focus"
+                              data-bs-placement="bottom" {{-- You can change this to top, right, left as needed --}}
+                              data-bs-html="true" {{-- Allows HTML in popover content (e.g., for line breaks) --}}
+                              data-bs-content="{{ nl2br(e($penyakit->solution)) }}" {{-- Full solution with line breaks --}}
+                              style="cursor: help; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            {{ $penyakit->solution }}
+                        </span>
+                    </td>
                     <td>
                         <div class="d-flex gap-2 justify-content-start">
                             <a href="{{ route('penyakit.edit', $penyakit->id) }}" class="btn btn-sm"><img src="{{ asset('images/edit.png') }}" width="24"><span> Edit</span></a>
@@ -82,3 +92,15 @@
     </table>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Initialize all popovers
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+            return new bootstrap.Popover(popoverTriggerEl)
+        })
+    });
+</script>
+@endpush
