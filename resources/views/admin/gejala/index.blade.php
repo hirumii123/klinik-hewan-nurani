@@ -46,10 +46,11 @@
                     <td>
                         @if ($gejala->image)
                             <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal"
-                               data-image-url="{{ asset($gejala->image) }}"
+                               data-image-url="{{ asset('storage/' . $gejala->image) }}"
                                data-image-source="{{ $gejala->image_source ?? 'Tidak ada sumber' }}"
                                class="d-block text-center image-zoom-trigger">
-                                <img src="{{ asset($gejala->image) }}" alt="Gambar Gejala" style="width: 80px; height: auto; object-fit: cover; border-radius: 5px; cursor: pointer;">
+                                <img src="{{ asset('storage/' . $gejala->image) }}" alt="Gambar Gejala" style="width: 80px; height: auto; object-fit: cover; border-radius: 5px; cursor: pointer;">
+
                             </a>
                         @else
                             -

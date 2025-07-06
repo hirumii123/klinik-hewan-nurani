@@ -284,4 +284,8 @@ section {
         padding-top: 0.75rem;
         margin-top: 0.5rem;
     }
+
+    .mobile-small-heading {
+    font-size: 1rem; /* Ubah nilai ini sesuai kebutuhan, 1rem biasanya ukuran h6 */
+    }
 }

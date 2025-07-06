@@ -22,7 +22,7 @@
     <section class="container" data-aos="fade-right" id="tentang">
         <div class="flex row align-items-center mb-5">
             <div class="col-lg-6">
-                <img class="img-fluid" style="max-width: 430px;" src="{{ asset('images/nurani.svg') }}" alt="foto nurani">
+                <img class="img-fluid" src="{{ asset('images/nurani.svg') }}" alt="foto nurani">
             </div>
             <div class="col-lg-6 text-start">
                 <h2 class="display-6 fw-bold mb-3">Tentang Kami</h2>

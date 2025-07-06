@@ -45,7 +45,7 @@
         <label for="image" class="form-label">Gambar Gejala (Opsional)</label>
         @if ($gejala->image)
             <div class="mb-2">
-                <img src="{{ asset($gejala->image) }}" alt="Gambar Gejala" style="max-width: 200px; height: auto;">
+                <img src="{{ asset('storage/' . $gejala->image) }}" alt="Gambar Gejala" style="max-width: 200px; height: auto;">
                 <div class="form-check mt-1">
                     <input class="form-check-input" type="checkbox" name="clear_image" id="clear_image" value="1">
                     <label class="form-check-label" for="clear_image">Hapus Gambar Saat Ini</label>

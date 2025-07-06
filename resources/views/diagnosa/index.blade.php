@@ -31,7 +31,7 @@
                                         {{-- Bagian gambar dan sumber yang akan tampil saat hover --}}
                                         @if ($symptom->image)
                                             <div class="symptom-image-info mt-2 text-center">
-                                                <img src="{{ asset($symptom->image) }}" alt="{{ $symptom->name }}" class="img-fluid rounded" style="max-height: 100px; display: block; margin: 0 auto;">
+                                                <img src="{{ asset('storage/' . $symptom->image) }}" alt="{{ $symptom->name }}" class="img-fluid rounded" style="max-height: 100px; display: block; margin: 0 auto;">
                                                 @if ($symptom->image_source)
                                                     <small class="text-muted d-block mt-1">Sumber: {{ $symptom->image_source }}</small>
                                                 @endif
