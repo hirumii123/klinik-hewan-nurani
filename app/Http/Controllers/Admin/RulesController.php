@@ -12,13 +12,12 @@ class RulesController extends Controller
 {
     public function index(Request $request)
     {
-        // Join with diseases and symptoms tables to order by their codes
         $query = Rule::with(['disease', 'symptom'])
                      ->join('diseases', 'rules.disease_id', '=', 'diseases.id')
-                     ->join('symptoms', 'rules.symptom_id', '=', 'symptoms.id') // Added join for symptoms
-                     ->select('rules.*') // Select all columns from rules table to avoid conflicts
+                     ->join('symptoms', 'rules.symptom_id', '=', 'symptoms.id')
+                     ->select('rules.*')
                      ->orderBy('diseases.code', 'asc')
-                     ->orderBy('symptoms.code', 'asc'); // Added secondary order by symptoms.code
+                     ->orderBy('symptoms.code', 'asc');
 
         if ($request->has('filter_disease') && $request->filter_disease != '') {
             $diseaseId = $request->filter_disease;

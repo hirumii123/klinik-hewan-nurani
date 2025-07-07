@@ -52,7 +52,6 @@ class GejalaController extends Controller
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images/symptoms', 'public');
             $symptom->image = $imagePath;
-            // $symptom->image = Storage::disk('public')->url($imagePath);
             $symptom->save();
         }
 
@@ -93,12 +92,9 @@ class GejalaController extends Controller
             }
             $imagePath = $request->file('image')->store('images/symptoms', 'public');
             $gejala->image = $imagePath;
-            // $gejala->image = Storage::disk('public')->url($imagePath);
             $gejala->save();
         } elseif ($request->input('clear_image')) {
-            // if ($gejala->image && Storage::exists(str_replace('/storage', 'public', $gejala->image))) {
-            //     Storage::delete(str_replace('/storage', 'public', $gejala->image));
-            // }
+
             if ($gejala->image && Storage::disk('public')->exists($gejala->image)) {
                 Storage::disk('public')->delete($gejala->image);
             }

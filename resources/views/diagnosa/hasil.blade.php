@@ -9,7 +9,7 @@
 
             {{-- Gejala yang Dipilih --}}
             <div class="mb-4">
-                <h5 class="mobile-small-heading">Gejala yang Dipilih:</h5> {{-- Perubahan di sini --}}
+                <h5>Gejala yang Dipilih:</h5>
                 <ul class="list-group list-group-flush">
                     @foreach ($cfUserInputs as $code => $cf)
                         <li class="list-group-item">
@@ -66,7 +66,7 @@
                 @foreach ($results as $index => $result)
                     <div class="card mb-5 mt-4 border-primary">
                         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                            <h5 class="m-0 mobile-small-heading">{{ $result['disease']->code }} - {{ $result['disease']->name }} ({{ $result['percentage'] }}%)</h5> {{-- Perubahan di sini --}}
+                            <h5 class="m-0">{{ $result['disease']->code }} - {{ $result['disease']->name }} ({{ $result['percentage'] }}%)</h5>
                             <button class="btn text-white rounded-full" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseDetail{{ $index }}" aria-expanded="false"
                                     aria-controls="collapseDetail{{ $index }}">
@@ -130,23 +130,23 @@
             @endif
             <hr class="border-1">
 
-            <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center mt-4 gap-3">
-                {{-- Left group of buttons: stack vertically on mobile, horizontally on larger screens --}}
-                <div class="d-flex flex-column flex-sm-row gap-2 w-100 w-sm-auto">
-                    <a href="{{ route('diagnosa.reset') }}" id="new-diagnosis-btn" class="btn btn-outline-primary btn-sm">
+            {{-- Perubahan di sini: Menggunakan justify-content-between --}}
+            <div class="d-flex justify-content-between align-items-center mt-4">
+                <div class="d-flex gap-2"> {{-- Grup tombol kiri --}}
+                    <a href="{{ route('diagnosa.reset') }}" id="new-diagnosis-btn" class="btn btn-outline-primary">
                         <i class="bi bi-arrow-repeat"></i> Mulai Diagnosa Baru
                     </a>
                     @if(count($results) > 0 && isset($results[0]['cf']))
                     <form action="{{ route('diagnosa.export') }}" method="POST" target="_blank">
                         @csrf
-                        <button type="submit" class="btn btn-success btn-sm w-100 w-sm-auto">
+                        <button type="submit" class="btn btn-success">
                             <i class="bi bi-file-earmark-pdf"></i> Export PDF
                         </button>
                     </form>
                     @endif
                 </div>
-                {{-- Right button: full width on mobile, auto width on larger screens, with top margin on mobile --}}
-                <a href="{{ route('feedback.create') }}" class="btn btn-outline-dark btn-sm mt-2 mt-sm-0 w-100 w-sm-auto">
+                {{-- Tombol "Berikan Saran" diletakkan sendiri untuk didorong ke kanan --}}
+                <a href="{{ route('feedback.create') }}" class="btn btn-outline-dark">
                     <i class="bi bi-lightbulb"></i> Ada Saran Untuk Kami?
                 </a>
             </div>
