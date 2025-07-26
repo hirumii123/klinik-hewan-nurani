@@ -292,7 +292,7 @@
 
             <div class="footer">
                 <p>
-                    Dokumen ini dihasilkan oleh Sistem Pakar Diagnosa Penyakit Kucing pada {{ date('d/m/Y H:i') }}<br>
+                    Dokumen ini dihasilkan oleh Sistem Pakar Diagnosis Penyakit Kucing pada {{ date('d/m/Y H:i') }}<br>
                     Hasil diagnosa ini bersifat indikatif dan sebaiknya dikonsultasikan dengan dokter hewan profesional.
                 </p>
             </div>

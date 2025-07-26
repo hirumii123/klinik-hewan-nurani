@@ -47,7 +47,7 @@
                     </div>
 
                     <div class="col-md-4 mb-4 mb-md-0">
-                        <h2 class="display-4 fw-bold">4</h2>
+                        <h2 class="display-4 fw-bold">3</h2>
                         <p class="lead">Dokter Hewan Berpengalaman</p>
                     </div>
 

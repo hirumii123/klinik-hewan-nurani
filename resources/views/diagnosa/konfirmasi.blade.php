@@ -12,7 +12,7 @@
                 <h5 class="fw-bold">😻 Sepertinya kucingmu sehat-sehat saja!</h5>
                 <p class="mb-4">Kalau begitu, tetap jaga kesehatannya ya! Tapi kalau ragu, kamu bisa mulai diagnosa ulang kapan saja.</p>
                 <a href="{{ route('diagnosa.reset') }}" id="new-diagnosis-btn-message" class="btn btn-primary" style="display: none;">
-                    <i class="bi bi-arrow-repeat"></i> Mulai Diagnosa Baru
+                    <i class="bi bi-arrow-repeat"></i> Mulai Diagnosis Baru
                 </a>
                 {{-- Tombol baru untuk feedback --}}
                 <a href="{{ route('feedback.create') }}" class="btn btn-outline-dark">
@@ -34,8 +34,8 @@
                                 <select name="cf_user[{{ $symptom->code }}]" class="form-select me-2" required>
                                     <option value="1.0">Sangat Yakin (100%)</option>
                                     <option value="0.8">Yakin (80%)</option>
-                                    <option value="0.6">Lumayan (60%)</option>
-                                    <option value="0.4">Cukup (40%)</option>
+                                    <option value="0.6">Cukup Yakin (60%)</option>
+                                    <option value="0.4">Sedikit Yakin (40%)</option>
                                 </select>
                                 <button type="button" class="btn-close" aria-label="Close" data-symptom-code="{{ $symptom->code }}"></button>
                             </div>
@@ -49,7 +49,7 @@
                     </a>
                     <div class="d-flex gap-2">
                         <a href="{{ route('diagnosa.reset') }}" id="new-diagnosis-btn-in-form" class="btn btn-outline-primary" style="display: none;">
-                            <i class="bi bi-arrow-repeat"></i> Mulai Diagnosa Baru
+                            <i class="bi bi-arrow-repeat"></i> Mulai Diagnosis Baru
                         </a>
                         <button type="submit" id="submitResultBtn" class="btn btn-primary">
                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>

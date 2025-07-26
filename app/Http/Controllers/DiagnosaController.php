@@ -21,7 +21,6 @@ class DiagnosaController extends Controller
         return view('diagnosa.index', compact('symptoms'));
     }
 
-    // Halaman konfirmasi untuk input CF user
     public function konfirmasi(Request $request)
     {
         $selectedCodes = $request->input('symptoms', []);
@@ -37,17 +36,18 @@ class DiagnosaController extends Controller
         $cfUserInputs = $request->input('cf_user', []);
 
         if (empty($cfUserInputs)) {
+            $cfValue = number_format(0.0, 4, '.', '');
             $results = [[
-                'disease' => (object)['code' => 'N/A', 'name' => 'Kucing Sehat', 'solution' => 'Tidak ada penyakit terdeteksi berdasarkan gejala yang dipilih. Terus pantau kesehatan kucing Anda.'],
-                'cf' => 0.0,
-                'percentage' => 0,
+                'disease' => (object)['code' => 'N/A', 'name' => 'Kucing Sehat', 'solution' => 'Tidak ada penyakit'],
+                'cf' => $cfValue,
+                'percentage' => (float)number_format((float)$cfValue * 100, 2, '.', ''),
                 'details' => [],
                 'steps' => ['Tidak ada gejala yang dipilih.']
             ]];
 
             session()->forget(['all_diagnosis_results', 'cf_user_inputs']);
             session([
-                'all_diagnosis_results' => $results, // Store all results
+                'all_diagnosis_results' => $results,
                 'cf_user_inputs' => $cfUserInputs
             ]);
 
@@ -60,18 +60,19 @@ class DiagnosaController extends Controller
         $shortcutCode = $this->checkTreeShortcut($cfUserInputs);
         if ($shortcutCode) {
             $shortcutPenyakit = Disease::where('code', $shortcutCode)->first();
+            $cfValue = number_format(1.0, 4, '.', '');
 
             $shortcutResult = [
                 'disease' => $shortcutPenyakit,
-                'cf' => 1.0,
-                'percentage' => 100,
+                'cf' => $cfValue,
+                'percentage' => (float)number_format((float)$cfValue * 100, 2, '.', ''),
                 'details' => [],
                 'steps' => ['🧠 Dideteksi langsung melalui struktur pohon (Forward Chaining).']
             ];
 
             session()->forget(['all_diagnosis_results', 'cf_user_inputs']);
             session([
-                'all_diagnosis_results' => [$shortcutResult], // Store as an array for consistency
+                'all_diagnosis_results' => [$shortcutResult],
                 'cf_user_inputs' => $cfUserInputs
             ]);
 
@@ -109,20 +110,28 @@ class DiagnosaController extends Controller
 
         foreach ($cfValues as $diseaseId => $cfList) {
             $cfCombine = $cfList[0];
-            $stepExplanation = ["CF1 = {$cfCombine}"];
+            $stepExplanation = ["CF1 = " . round($cfCombine, 5)];
 
             for ($i = 1; $i < count($cfList); $i++) {
                 $prev = $cfCombine;
                 $cfCombine = $cfCombine + $cfList[$i] * (1 - $cfCombine);
-                $stepExplanation[] = "CF" . ($i + 1) . " = {$cfList[$i]} → CF = {$prev} + {$cfList[$i]} × (1 - {$prev}) = " . round($cfCombine, 4);
+                $stepExplanation[] = "CF" . ($i + 1) . " = " . round($cfList[$i], 5) . " → CF = " . round($prev, 5) . " + " . round($cfList[$i], 5) . " × (1 - " . round($prev, 5) . ") = " . round($cfCombine, 5);
             }
 
+            $cfValue = number_format($cfCombine, 4, '.', '');
+            $rawPercent = (float) $cfCombine * 100;
+
+            if (intval($rawPercent) == $rawPercent) {
+                $percentDisplay = intval($rawPercent);
+            } else {
+                $percentDisplay = number_format($rawPercent, 2, '.', '');
+            }
             $results[] = [
-                'disease' => Disease::find($diseaseId),
-                'cf' => round($cfCombine, 3),
-                'percentage' => round($cfCombine * 100, 2),
-                'details' => $details[$diseaseId] ?? [],
-                'steps' => $stepExplanation
+                'disease'    => Disease::find($diseaseId),
+                'cf'         => number_format($cfCombine, 4, '.', ''),
+                'percentage' => $percentDisplay,
+                'details'    => $details[$diseaseId] ?? [],
+                'steps'      => $stepExplanation
             ];
         }
 
@@ -131,7 +140,7 @@ class DiagnosaController extends Controller
 
         session()->forget(['all_diagnosis_results', 'cf_user_inputs']);
         session([
-            'all_diagnosis_results' => $results, // Store all results
+            'all_diagnosis_results' => $results,
             'cf_user_inputs' => $cfUserInputs
         ]);
 
@@ -165,16 +174,15 @@ class DiagnosaController extends Controller
 
     public function exportPdf(Request $request)
     {
-        $allResults = session('all_diagnosis_results'); // Retrieve all results
+        $allResults = session('all_diagnosis_results');
         $cfUserInputs = session('cf_user_inputs');
 
         if (!$allResults || empty($allResults)) {
             return abort(400, 'Data diagnosa tidak valid atau tidak ditemukan.');
         }
 
-        // Pass all results to the PDF view
         $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('diagnosa.pdf', [
-            'results' => $allResults, // Pass all results
+            'results' => $allResults,
             'cfUserInputs' => $cfUserInputs,
         ])->setPaper('a4', 'portrait');
 

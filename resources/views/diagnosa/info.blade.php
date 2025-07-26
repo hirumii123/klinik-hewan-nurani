@@ -4,11 +4,11 @@
 <div class="container">
     <div class="row align-items-center mb-5">
         <div class="col-lg-6">
-            <h1 class="display-5 fw-bold mb-3">Diagnosa Penyakit Kucing</h1>
+            <h1 class="display-5 fw-bold mb-3">Diagnosis Penyakit Kucing</h1>
             <p class="lead">Sistem pakar untuk mendiagnosa berbagai penyakit pada kucing kesayangan Anda dengan metode Certainty Factor (CF) dan Forward Chaining.</p>
             <div class="d-grid gap-2 d-md-flex mt-4">
                 <a href="{{ route('diagnosa.index') }}" class="btn btn-primary btn-lg px-4">
-                    <i class="bi bi-clipboard2-pulse me-2"></i>Diagnosa Sekarang
+                    <i class="bi bi-clipboard2-pulse me-2"></i>Diagnosis Sekarang
                 </a>
                 <a href="#info" class="btn btn-outline-secondary btn-lg px-4">
                     <i class="bi bi-info-circle me-2"></i>Pelajari Lebih Lanjut
@@ -58,7 +58,7 @@
                                         <i class="bi bi-file-earmark-medical fs-4"></i>
                                     </div>
                                     <h4 class="card-title">3. Dapatkan Hasil</h4>
-                                    <p class="card-text">Lihat hasil diagnosa penyakit kucing dan rekomendasi penanganan.</p>
+                                    <p class="card-text">Lihat hasil diagnosis penyakit kucing dan rekomendasi penanganan.</p>
                                 </div>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
         <div class="col-md-12">
             <div class="card shadow rounded-4">
                 <div class="card-body p-4">
-                    <h2 class="card-title mb-4">Tentang Sistem Pakar Diagnosa Penyakit Kucing</h2>
+                    <h2 class="card-title mb-4">Tentang Sistem Pakar Diagnosis Penyakit Kucing</h2>
                     <p class="lead">Sistem ini dikembangkan menggunakan metode <strong>Certainty Factor (CF)</strong> dan <strong>Forward Chaining</strong> untuk memberikan diagnosa yang akurat berdasarkan gejala-gejala yang diamati.</p>
 
                     <div class="row mt-4">

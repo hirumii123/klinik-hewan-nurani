@@ -4,7 +4,7 @@
 <div class="container my-5">
     <div class="card shadow rounded-4">
         <div class="card-body p-5">
-            <h2 class="mb-4 text-primary text-center">🩺 Diagnosa Penyakit Kucing</h2>
+            <h2 class="mb-4 text-primary text-center">🩺 Diagnosis Penyakit Kucing</h2>
             <p class="text-muted text-center mb-4">Silakan pilih gejala yang dialami kucing Anda berdasarkan area tubuh kucing. <br>Jika tidak ada gejala yang sesuai, silakan klik tombol Selanjutnya.</p>
 
             <div class="progress mb-4" style="height: 20px;">
@@ -25,7 +25,7 @@
                                     <label class="card h-100 shadow-sm symptom-card p-3" for="{{ $symptom->code }}" style="cursor: pointer;">
                                         <div class="form-check d-flex align-items-center">
                                             <input class="form-check-input d-none" type="checkbox" name="symptoms[]" value="{{ $symptom->code }}" id="{{ $symptom->code }}">
-                                            <span class="fw-semibold flex-grow-1">{{ $symptom->name }}</span>
+                                            <span class="fw-semibold flex-grow-1">{{ $symptom->code}} - {{ $symptom->name}}</span>
                                         </div>
 
                                         {{-- Bagian gambar dan sumber yang akan tampil saat hover --}}

@@ -26,11 +26,16 @@ class PenyakitController extends Controller
             $query->where('id', $diseaseId);
         }
 
-        if ($request->has('filter_symptom') && $request->filter_symptom != '') {
-            $symptomId = $request->filter_symptom;
-            $query->whereHas('rules', function ($q) use ($symptomId) {
-                $q->where('symptom_id', $symptomId);
-            });
+        // Modified to implement logical AND for multiple selected symptoms
+        if ($request->has('filter_symptoms') && is_array($request->filter_symptoms) && !empty($request->filter_symptoms)) {
+            $symptomIds = $request->filter_symptoms;
+            foreach ($symptomIds as $symptomId) {
+                // For each selected symptom, add a whereHas clause
+                // This ensures the disease must have a rule for ALL selected symptoms
+                $query->whereHas('rules', function ($q) use ($symptomId) {
+                    $q->where('symptom_id', $symptomId);
+                });
+            }
         }
 
         $diseases = $query->get();

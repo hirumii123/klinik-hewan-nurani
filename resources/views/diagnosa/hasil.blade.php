@@ -33,7 +33,6 @@
                             <tr>
                                 <th>Kode Penyakit</th>
                                 <th>Nama Penyakit</th>
-                                <th>Nilai CF</th>
                                 <th>Persentase (%)</th>
                                 <th>Tingkat Kepastian</th>
                             </tr>
@@ -43,7 +42,6 @@
                                 <tr>
                                     <td>{{ $result['disease']->code }}</td>
                                     <td>{{ $result['disease']->name }}</td>
-                                    <td><strong>{{ $result['cf'] }}</strong></td>
                                     <td><strong>{{ $result['percentage'] }}%</strong></td>
                                     <td>
                                         @if($result['cf'] >= 0.8)
@@ -134,7 +132,7 @@
             <div class="d-flex justify-content-between align-items-center mt-4">
                 <div class="d-flex gap-2"> {{-- Grup tombol kiri --}}
                     <a href="{{ route('diagnosa.reset') }}" id="new-diagnosis-btn" class="btn btn-outline-primary">
-                        <i class="bi bi-arrow-repeat"></i> Mulai Diagnosa Baru
+                        <i class="bi bi-arrow-repeat"></i> Mulai Diagnosis Baru
                     </a>
                     @if(count($results) > 0 && isset($results[0]['cf']))
                     <form action="{{ route('diagnosa.export') }}" method="POST" target="_blank">

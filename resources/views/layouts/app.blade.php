@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Pakar Diagnosa Penyakit Kucing</title>
+    <title>Sistem Pakar Diagnosis Penyakit Kucing</title>
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
     <!-- Mengimpor font Merriweather dari Google Fonts -->
@@ -44,7 +44,7 @@
                         <a class="nav-link" href="{{ url('/#lokasi') }}">Lokasi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('info-diagnosa') }}">Diagnosa Penyakit</a>
+                        <a class="nav-link" href="{{ route('info-diagnosa') }}">Diagnosis Penyakit</a>
                     </li>
                     {{-- Logika untuk menampilkan tautan login/logout --}}
                     @guest

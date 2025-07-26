@@ -11,6 +11,11 @@ body {
     background-color: #f8f9fa;
 }
 
+.filtered-symptom {
+    color: red;
+    font-weight: bold;
+}
+
 .content-wrapper {
     flex-grow: 1;
     display: flex;
